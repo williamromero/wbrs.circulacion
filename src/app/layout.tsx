@@ -14,9 +14,13 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body
-        className="antialiased bg-white text-black font-mono selection:bg-black selection:text-white"
+        className="antialiased font-mono"
+        style={{
+          backgroundColor: 'rgb(var(--background))',
+          color: 'rgb(var(--foreground))',
+        }}
       >
-        <div className="min-h-screen flex flex-col border-x-4 border-black max-w-7xl mx-auto">
+        <div className="min-h-screen flex flex-col max-w-7xl mx-auto brutal-border">
            {children}
         </div>
       </body>
