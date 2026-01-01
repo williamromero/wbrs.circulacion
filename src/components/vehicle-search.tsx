@@ -445,7 +445,7 @@ export default function VehicleSearch() {
                           <Calendar className="w-5 h-5" />
                           Tabla de Impuestos (Con Descuento 50%)
                       </h3>
-                      <div className="space-y-1 max-h-[400px] overflow-y-auto pr-2">
+                      <div className="space-y-1 pr-2">
                           {[2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017].map((year) => {
                               const key = Object.keys(selectedVehicle).find(k => k.startsWith(`ISCV_${year}`)) || "";
                               const originalValue = selectedVehicle[key];
