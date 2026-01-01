@@ -162,7 +162,12 @@ export default function VehicleSearch() {
 
   // Get unique lists for filters
   const uniqueMarcas = useMemo(() => Array.from(new Set(data.map(v => v.MARCA))).sort(), [data]);
-  const uniqueTypes = useMemo(() => Array.from(new Set(data.map(v => v.TIPO_VEHICULO))).sort(), [data]);
+  
+  const uniqueTypes = useMemo(() => {
+      let filtered = data;
+      if (selectedMarca) filtered = filtered.filter(v => v.MARCA === selectedMarca);
+      return Array.from(new Set(filtered.map(v => v.TIPO_VEHICULO))).sort();
+  }, [data, selectedMarca]);
   
   const uniqueLineas = useMemo(() => {
     let filtered = data;
@@ -323,10 +328,10 @@ export default function VehicleSearch() {
                 }}
               >
                 <th className="p-3 border-r border-[rgb(var(--background))] hidden md:table-cell">Código</th>
-                <th className="p-3 border-r border-[rgb(var(--background))]">Tipo</th>
                 <th className="p-3 border-r border-[rgb(var(--background))]">Marca / Línea</th>
-                <th className="p-3 border-r border-[rgb(var(--background))] text-center hidden md:table-cell">2026</th>
-                <th className="p-3 border-r border-[rgb(var(--background))] text-center hidden md:table-cell">2025</th>
+                <th className="p-3 border-r border-[rgb(var(--background))]">Tipo</th>
+                <th className="p-3 border-r border-[rgb(var(--background))] text-center hidden md:table-cell">C.C.</th>
+                <th className="p-3 border-r border-[rgb(var(--background))] text-center hidden md:table-cell">Combustible</th>
                 <th className="p-3 text-center bg-[rgb(var(--primary))] text-[rgb(var(--primary-foreground))]">Acción</th>
               </tr>
             </thead>
@@ -338,16 +343,16 @@ export default function VehicleSearch() {
                   className="cursor-pointer group hover:bg-[rgb(var(--accent))] hover:text-[rgb(var(--primary))] transition-colors border-b border-[rgb(var(--border))]"
                 >
                   <td className="p-3 font-bold border-r border-[rgb(var(--border))] hidden md:table-cell">{row.CODIGO}</td>
-                  <td className="p-3 border-r border-[rgb(var(--border))] text-xs">{row.TIPO_VEHICULO}</td>
                   <td className="p-3 border-r border-[rgb(var(--border))]">
                     <div className="font-bold">{row.MARCA}</div>
                     <div className="text-xs opacity-70">{row.LINEA}</div>
                   </td>
+                  <td className="p-3 border-r border-[rgb(var(--border))] text-xs">{row.TIPO_VEHICULO}</td>
                   <td className="p-3 text-center font-bold border-r border-[rgb(var(--border))] hidden md:table-cell">
-                    {row["ISCV_2026_2%"]}
+                    {row.CILINDRAJE}
                   </td>
-                   <td className="p-3 text-center opacity-70 border-r border-[rgb(var(--border))] hidden md:table-cell">
-                    {row["ISCV_2025_1.8%"]}
+                   <td className="p-3 text-center opacity-70 border-r border-[rgb(var(--border))] hidden md:table-cell text-xs">
+                    {row.COMBUSTIBLE}
                   </td>
                   <td className="p-3 text-center min-w-[120px]">
                     <button className="brutal-btn w-full bg-[rgb(var(--primary))] text-[rgb(var(--primary-foreground))] text-[10px] md:text-xs py-2 shadow-none group-hover:bg-white group-hover:text-black font-black">
@@ -449,7 +454,9 @@ export default function VehicleSearch() {
                               
                               return (
                                   <div key={year} className="flex justify-between items-center p-2 bg-[rgb(var(--background))] border border-[rgb(var(--border))] hover:border-[rgb(var(--primary))] transition-colors">
-                                      <span className="font-bold text-xs md:text-sm">Año {year}</span>
+                                      <span className="font-bold text-xs md:text-sm">
+                                          Año {year} {year === 2017 ? "y anteriores" : ""}
+                                      </span>
                                       <div className="text-right">
                                           <div className="font-black text-sm md:text-lg text-[rgb(var(--primary))]">{discountedValue}</div>
                                           <div className="text-[10px] line-through opacity-50">{originalValue}</div>
@@ -459,7 +466,7 @@ export default function VehicleSearch() {
                           })}
                       </div>
                   </div>
-                  
+
                  {/* Specs */}
                  <div className="space-y-6">
                     <div>

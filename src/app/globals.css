@@ -18,15 +18,16 @@
   /* Blanco puro para texto */
   --foreground: 255 255 255;
   
-  /* Color de acento eléctrico (Amarillo Ácido / Lime) */
-  --primary: 204 255 0; /* #ccff00 - Electric Lime */
+  /* Color de acento principal eléctrico (Verde Ácido / Lime) */
+  --primary: 204 255 0; /* #ccff00 */
   --primary-foreground: 0 0 0;
   
-  /* Gris oscuro solo para superficies secundarias si es necesario, o negro con borde blanco */
+  /* Secundario para fondos de tarjetas/modales */
   --secondary: 20 20 20; 
   
-  /* Color de acento secundario o hover (Cian Eléctrico o Magenta) */
-  --accent: 0 255 255; /* #00ffff - Cyan */
+  /* Color de acento secundario (Magenta Neón) - Reemplaza al Cian */
+  /* Se usa para detalles que no son la acción principal */
+  --accent: 255 0 255; /* #ff00ff */
   
   /* Bordes blancos gruesos */
   --border: 255 255 255;
@@ -62,9 +63,9 @@ body {
   
   .brutal-btn:hover {
     transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0px 0px rgb(var(--primary)); /* Sombra eléctrica al hover */
-    background-color: rgb(var(--primary)); /* Fondo eléctrico */
-    color: rgb(var(--primary-foreground)); /* Texto negro */
+    box-shadow: 6px 6px 0px 0px rgb(var(--primary)); 
+    background-color: rgb(var(--primary));
+    color: rgb(var(--primary-foreground));
     border-color: rgb(var(--primary));
   }
   
