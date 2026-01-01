@@ -3,7 +3,6 @@
 import { useEffect, useState, useMemo } from "react";
 import Papa from "papaparse";
 import { Search, ArrowRight, ArrowLeft, Loader2, Database } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 type Vehicle = {
   MARCA: string;
@@ -74,8 +73,19 @@ export default function VehicleSearch() {
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center h-64 space-y-4">
-        <Loader2 className="w-12 h-12 animate-spin border-4 border-black p-1 rounded-full" />
-        <p className="font-mono text-xl font-bold uppercase tracking-widest">Cargando Datos...</p>
+        <Loader2 
+          className="w-12 h-12 animate-spin p-1 rounded-full" 
+          style={{ 
+            border: '4px solid rgb(var(--border-color))',
+            color: 'rgb(var(--primary))'
+          }}
+        />
+        <p 
+          className="font-mono text-xl font-bold uppercase tracking-widest"
+          style={{ color: 'rgb(var(--foreground))' }}
+        >
+          Cargando Datos...
+        </p>
       </div>
     );
   }
@@ -83,19 +93,33 @@ export default function VehicleSearch() {
   return (
     <div className="space-y-8">
       {/* Search Section */}
-      <div className="bg-black text-white p-6 brutal-shadow border-2 border-black">
+      <div 
+        className="p-6 brutal-shadow brutal-border"
+        style={{ 
+          background: 'rgb(var(--primary))',
+          color: 'rgb(var(--background))'
+        }}
+      >
         <label className="block text-sm font-bold mb-2 uppercase tracking-widest">
           Buscar Vehículo (Marca, Línea, Código...)
         </label>
         <div className="relative">
           <input
             type="text"
-            className="w-full bg-white text-black border-2 border-white p-4 pr-12 font-mono text-lg focus:outline-none focus:ring-4 focus:ring-gray-500 placeholder:text-gray-400"
+            className="w-full p-4 pr-12 font-mono text-lg focus:outline-none placeholder:opacity-60"
+            style={{ 
+              background: 'rgb(var(--surface-elevated))',
+              color: 'rgb(var(--foreground))',
+              border: '2px solid rgb(var(--border-color))'
+            }}
             placeholder="EJ: TOYOTA HILUX..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <Search className="absolute right-4 top-1/2 -translate-y-1/2 text-black w-6 h-6" />
+          <Search 
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6"
+            style={{ color: 'rgb(var(--foreground))' }}
+          />
         </div>
         <div className="mt-4 flex items-center gap-2 text-sm font-mono">
             <Database className="w-4 h-4" />
@@ -104,33 +128,54 @@ export default function VehicleSearch() {
       </div>
 
       {/* Results Table */}
-      <div className="overflow-x-auto border-2 border-black brutal-shadow bg-white">
+      <div 
+        className="overflow-x-auto brutal-shadow brutal-border"
+        style={{ background: 'rgb(var(--surface-elevated))' }}
+      >
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-black text-white uppercase text-sm tracking-wider">
-              <th className="p-4 border-b-2 border-black border-r-2">Código</th>
-              <th className="p-4 border-b-2 border-black border-r-2">Marca / Línea</th>
-              <th className="p-4 border-b-2 border-black border-r-2">Tipo</th>
-              <th className="p-4 border-b-2 border-black border-r-2 text-right">Valor 2026</th>
-              <th className="p-4 border-b-2 border-black text-right">Impuesto 2026</th>
+            <tr 
+              className="uppercase text-sm tracking-wider"
+              style={{ 
+                background: 'rgb(var(--secondary))',
+                color: 'rgb(var(--background))'
+              }}
+            >
+              <th className="p-4" style={{ borderBottom: '2px solid rgb(var(--border-color))', borderRight: '2px solid rgb(var(--border-color))' }}>Código</th>
+              <th className="p-4" style={{ borderBottom: '2px solid rgb(var(--border-color))', borderRight: '2px solid rgb(var(--border-color))' }}>Marca / Línea</th>
+              <th className="p-4" style={{ borderBottom: '2px solid rgb(var(--border-color))', borderRight: '2px solid rgb(var(--border-color))' }}>Tipo</th>
+              <th className="p-4 text-right" style={{ borderBottom: '2px solid rgb(var(--border-color))', borderRight: '2px solid rgb(var(--border-color))' }}>Valor 2026</th>
+              <th className="p-4 text-right" style={{ borderBottom: '2px solid rgb(var(--border-color))' }}>Impuesto 2026</th>
             </tr>
           </thead>
           <tbody className="font-mono text-sm">
             {paginatedData.map((row, index) => (
               <tr
                 key={index}
-                className="hover:bg-yellow-100 border-b-2 border-black transition-colors"
+                className="transition-colors"
+                style={{ 
+                  borderBottom: '2px solid rgb(var(--border-color))',
+                  color: 'rgb(var(--foreground))'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgb(var(--accent))';
+                  e.currentTarget.style.color = 'rgb(var(--background))';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'transparent';
+                  e.currentTarget.style.color = 'rgb(var(--foreground))';
+                }}
               >
-                <td className="p-4 border-r-2 border-black font-bold">{row.CODIGO}</td>
-                <td className="p-4 border-r-2 border-black">
+                <td className="p-4 font-bold" style={{ borderRight: '2px solid rgb(var(--border-color))' }}>{row.CODIGO}</td>
+                <td className="p-4" style={{ borderRight: '2px solid rgb(var(--border-color))' }}>
                   <div className="font-bold">{row.MARCA}</div>
-                  <div className="text-xs text-gray-600">{row.LINEA}</div>
+                  <div className="text-xs" style={{ color: 'rgb(var(--foreground-secondary))' }}>{row.LINEA}</div>
                 </td>
-                <td className="p-4 border-r-2 border-black">{row.TIPO_VEHICULO}</td>
-                <td className="p-4 border-r-2 border-black text-right font-bold">
+                <td className="p-4" style={{ borderRight: '2px solid rgb(var(--border-color))' }}>{row.TIPO_VEHICULO}</td>
+                <td className="p-4 text-right font-bold" style={{ borderRight: '2px solid rgb(var(--border-color))' }}>
                   {row.VALOR_VEHICULO}
                 </td>
-                <td className="p-4 text-right bg-gray-50 font-bold">
+                <td className="p-4 text-right font-bold" style={{ background: 'rgb(var(--surface))' }}>
                   {row["ISCV_2026_2%"]}
                 </td>
               </tr>
@@ -138,7 +183,7 @@ export default function VehicleSearch() {
             {paginatedData.length === 0 && (
               <tr>
                 <td colSpan={5} className="p-12 text-center text-xl font-bold uppercase">
-                    No se encontraron resultados para "{searchTerm}"
+                    No se encontraron resultados para &ldquo;{searchTerm}&rdquo;
                 </td>
               </tr>
             )}
@@ -148,21 +193,24 @@ export default function VehicleSearch() {
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex justify-between items-center bg-white border-2 border-black p-4 brutal-shadow">
+        <div 
+          className="flex justify-between items-center p-4 brutal-shadow brutal-border"
+          style={{ background: 'rgb(var(--surface-elevated))' }}
+        >
           <button
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page === 1}
-            className="brutal-btn flex items-center gap-2 disabled:opacity-50 disabled:shadow-none"
+            className="brutal-btn flex items-center gap-2"
           >
             <ArrowLeft className="w-4 h-4" /> ANTERIOR
           </button>
-          <span className="font-bold font-mono">
+          <span className="font-bold font-mono" style={{ color: 'rgb(var(--foreground))' }}>
             PÁGINA {page} DE {totalPages}
           </span>
           <button
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page === totalPages}
-            className="brutal-btn flex items-center gap-2 disabled:opacity-50 disabled:shadow-none"
+            className="brutal-btn flex items-center gap-2"
           >
             SIGUIENTE <ArrowRight className="w-4 h-4" />
           </button>
