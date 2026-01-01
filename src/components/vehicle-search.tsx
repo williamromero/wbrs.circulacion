@@ -108,7 +108,9 @@ export default function VehicleSearch() {
     return (
       <div className="flex flex-col items-center justify-center h-64 space-y-4">
         <Loader2 className="w-12 h-12 animate-spin border-4 border-black p-1 rounded-full" />
-        <p className="font-mono text-xl font-bold uppercase tracking-widest">Cargando Datos...</p>
+        <p className="font-mono text-xl font-bold uppercase tracking-widest">
+          Cargando Datos...
+        </p>
       </div>
     );
   }
@@ -151,7 +153,7 @@ export default function VehicleSearch() {
               Marca
             </label>
             <select
-              className="w-full bg-white text-black border-2 border-white p-4 font-mono text-lg focus:outline-none focus:ring-4 focus:ring-gray-500"
+              className="w-full bg-white text-black border-2 border-black p-4 font-mono text-lg focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
               value={selectedMarca}
               onChange={(e) => {
                 setSelectedMarca(e.target.value);
@@ -174,7 +176,7 @@ export default function VehicleSearch() {
               Modelo / Línea
             </label>
             <select
-              className="w-full bg-white text-black border-2 border-white p-4 font-mono text-lg focus:outline-none focus:ring-4 focus:ring-gray-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-white text-black border-2 border-black p-4 font-mono text-lg focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
               value={selectedLinea}
               onChange={(e) => {
                 setSelectedLinea(e.target.value);
@@ -206,7 +208,7 @@ export default function VehicleSearch() {
                 setSearchTerm("");
                 setPage(1);
               }}
-              className="bg-white text-black border-2 border-white px-4 py-2 font-bold uppercase text-sm hover:bg-gray-200 transition-colors flex items-center gap-2"
+              className="px-4 py-2 bg-white text-black border-2 border-black font-bold hover:bg-black hover:text-white brutal-shadow-sm active:translate-y-1 active:shadow-none transition-all flex items-center gap-2"
             >
               <X className="w-4 h-4" />
               Limpiar Filtros
@@ -216,19 +218,19 @@ export default function VehicleSearch() {
       </div>
 
       {/* Results Table */}
-      <div className="overflow-x-auto border-2 border-black brutal-shadow bg-white">
+      <div className="overflow-x-auto bg-white border-2 border-black brutal-shadow">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-black text-white uppercase text-xs md:text-sm tracking-wider">
-              <th className="p-3 md:p-4 border-b-2 border-black border-r-2 sticky left-0 bg-black z-10">Marca / Línea</th>
-              <th className="p-3 md:p-4 border-b-2 border-black border-r-2 text-center">2026</th>
-              <th className="p-3 md:p-4 border-b-2 border-black border-r-2 text-center">2025</th>
-              <th className="p-3 md:p-4 border-b-2 border-black border-r-2 text-center">2024</th>
-              <th className="p-3 md:p-4 border-b-2 border-black border-r-2 text-center">2023</th>
-              <th className="p-3 md:p-4 border-b-2 border-black border-r-2 text-center">2022</th>
-              <th className="p-3 md:p-4 border-b-2 border-black border-r-2 text-center">2021</th>
-              <th className="p-3 md:p-4 border-b-2 border-black border-r-2 text-center">2020</th>
-              <th className="p-3 md:p-4 border-b-2 border-black text-center">Más Atrás</th>
+            <tr className="bg-pink-500 text-white uppercase text-xs md:text-sm tracking-wider">
+              <th className="p-3 md:p-4 sticky left-0 z-10 border-b-2 border-r-2 border-black bg-pink-500">Marca / Línea</th>
+              <th className="p-3 md:p-4 text-center border-b-2 border-r-2 border-black">2026</th>
+              <th className="p-3 md:p-4 text-center border-b-2 border-r-2 border-black">2025</th>
+              <th className="p-3 md:p-4 text-center border-b-2 border-r-2 border-black">2024</th>
+              <th className="p-3 md:p-4 text-center border-b-2 border-r-2 border-black">2023</th>
+              <th className="p-3 md:p-4 text-center border-b-2 border-r-2 border-black">2022</th>
+              <th className="p-3 md:p-4 text-center border-b-2 border-r-2 border-black">2021</th>
+              <th className="p-3 md:p-4 text-center border-b-2 border-r-2 border-black">2020</th>
+              <th className="p-3 md:p-4 text-center border-b-2 border-black">Más Atrás</th>
             </tr>
           </thead>
           <tbody className="font-mono text-xs md:text-sm">
@@ -236,32 +238,32 @@ export default function VehicleSearch() {
               <tr
                 key={index}
                 onClick={() => setSelectedVehicle(row)}
-                className="hover:bg-yellow-100 border-b-2 border-black transition-colors cursor-pointer"
+                className="border-b-2 border-black transition-colors cursor-pointer hover:bg-yellow-300"
               >
-                <td className="p-3 md:p-4 border-r-2 border-black sticky left-0 bg-white hover:bg-yellow-100">
+                <td className="p-3 md:p-4 sticky left-0 border-r-2 border-black bg-white">
                   <div className="font-bold">{row.MARCA}</div>
                   <div className="text-xs text-gray-600">{row.LINEA}</div>
-                  <div className="text-xs text-gray-500 mt-1">{row.CODIGO}</div>
+                  <div className="text-xs mt-1 text-gray-600">{row.CODIGO}</div>
                 </td>
-                <td className="p-3 md:p-4 border-r-2 border-black text-center font-bold bg-gray-50">
+                <td className="p-3 md:p-4 text-center font-bold border-r-2 border-black bg-lime-300">
                   {row["ISCV_2026_2%"]}
                 </td>
-                <td className="p-3 md:p-4 border-r-2 border-black text-center">
+                <td className="p-3 md:p-4 text-center border-r-2 border-black">
                   {row["ISCV_2025_1.8%"]}
                 </td>
-                <td className="p-3 md:p-4 border-r-2 border-black text-center bg-gray-50">
+                <td className="p-3 md:p-4 text-center border-r-2 border-black bg-lime-300">
                   {row["ISCV_2024_1.6%"]}
                 </td>
-                <td className="p-3 md:p-4 border-r-2 border-black text-center">
+                <td className="p-3 md:p-4 text-center border-r-2 border-black">
                   {row["ISCV_2023_1.4%"]}
                 </td>
-                <td className="p-3 md:p-4 border-r-2 border-black text-center bg-gray-50">
+                <td className="p-3 md:p-4 text-center border-r-2 border-black bg-lime-300">
                   {row["ISCV_2022_1.2%"]}
                 </td>
-                <td className="p-3 md:p-4 border-r-2 border-black text-center">
+                <td className="p-3 md:p-4 text-center border-r-2 border-black">
                   {row["ISCV_2021_1.0%"]}
                 </td>
-                <td className="p-3 md:p-4 border-r-2 border-black text-center bg-gray-50">
+                <td className="p-3 md:p-4 text-center border-r-2 border-black bg-lime-300">
                   {row["ISCV_2020_0.8%"]}
                 </td>
                 <td className="p-3 md:p-4 text-center">
@@ -283,11 +285,11 @@ export default function VehicleSearch() {
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex justify-between items-center bg-white border-2 border-black p-4 brutal-shadow">
+        <div className="flex justify-between items-center p-4 bg-white border-2 border-black brutal-shadow">
           <button
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page === 1}
-            className="brutal-btn flex items-center gap-2 disabled:opacity-50 disabled:shadow-none"
+            className="px-4 py-2 bg-white border-2 border-black font-bold hover:bg-black hover:text-white disabled:opacity-50 disabled:cursor-not-allowed brutal-shadow-sm active:translate-y-1 active:shadow-none transition-all flex items-center gap-2"
           >
             <ArrowLeft className="w-4 h-4" /> ANTERIOR
           </button>
@@ -297,7 +299,7 @@ export default function VehicleSearch() {
           <button
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page === totalPages}
-            className="brutal-btn flex items-center gap-2 disabled:opacity-50 disabled:shadow-none"
+            className="px-4 py-2 bg-white border-2 border-black font-bold hover:bg-black hover:text-white disabled:opacity-50 disabled:cursor-not-allowed brutal-shadow-sm active:translate-y-1 active:shadow-none transition-all flex items-center gap-2"
           >
             SIGUIENTE <ArrowRight className="w-4 h-4" />
           </button>
@@ -306,10 +308,10 @@ export default function VehicleSearch() {
 
       {/* Vehicle Details Modal */}
       {selectedVehicle && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div className="fixed inset-0 flex items-center justify-center p-4 z-50 bg-black bg-opacity-50">
           <div className="bg-white border-4 border-black brutal-shadow max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             {/* Modal Header */}
-            <div className="bg-black text-white p-6 flex justify-between items-start sticky top-0 z-10">
+            <div className="bg-pink-500 text-white p-6 flex justify-between items-start sticky top-0 z-10 border-b-4 border-black">
               <div>
                 <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tighter">
                   {selectedVehicle.MARCA}
@@ -321,7 +323,7 @@ export default function VehicleSearch() {
               </div>
               <button
                 onClick={() => setSelectedVehicle(null)}
-                className="bg-white text-black p-2 hover:bg-gray-200 transition-colors"
+                className="px-4 py-2 bg-white text-black border-2 border-black font-bold hover:bg-black hover:text-white brutal-shadow-sm active:translate-y-1 active:shadow-none transition-all p-2"
               >
                 <X className="w-6 h-6" />
               </button>
@@ -331,8 +333,8 @@ export default function VehicleSearch() {
             <div className="p-6 space-y-6">
               {/* Vehicle Details */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="border-2 border-black p-4 bg-gray-50">
-                  <h3 className="font-bold uppercase text-sm mb-3 border-b-2 border-black pb-2">
+                <div className="border-2 border-black bg-gray-50 p-4">
+                  <h3 className="font-bold uppercase text-sm mb-3 pb-2 border-b-2 border-black">
                     Información General
                   </h3>
                   <div className="space-y-2 text-sm font-mono">
@@ -355,8 +357,8 @@ export default function VehicleSearch() {
                   </div>
                 </div>
 
-                <div className="border-2 border-black p-4 bg-gray-50">
-                  <h3 className="font-bold uppercase text-sm mb-3 border-b-2 border-black pb-2">
+                <div className="border-2 border-black bg-gray-50 p-4">
+                  <h3 className="font-bold uppercase text-sm mb-3 pb-2 border-b-2 border-black">
                     Especificaciones Técnicas
                   </h3>
                   <div className="space-y-2 text-sm font-mono">
@@ -381,7 +383,7 @@ export default function VehicleSearch() {
               </div>
 
               {/* Value */}
-              <div className="border-2 border-black p-4 bg-yellow-50">
+              <div className="border-2 border-black bg-yellow-300 p-4">
                 <div className="flex justify-between items-center">
                   <span className="font-bold uppercase text-lg">Valor del Vehículo:</span>
                   <span className="text-2xl font-black">{selectedVehicle.VALOR_VEHICULO}</span>
@@ -390,7 +392,7 @@ export default function VehicleSearch() {
 
               {/* Payment Information by Year */}
               <div className="border-2 border-black">
-                <div className="bg-black text-white p-4">
+                <div className="bg-black text-white p-4 border-b-2 border-black">
                   <h3 className="font-bold uppercase text-lg flex items-center gap-2">
                     <Calendar className="w-5 h-5" />
                     Impuesto de Circulación por Año (ISCV)
@@ -400,64 +402,80 @@ export default function VehicleSearch() {
                   <table className="w-full border-collapse">
                     <thead>
                       <tr className="bg-gray-100">
-                        <th className="p-3 border-b-2 border-black text-left font-bold uppercase text-sm">
+                        <th className="p-3 text-left font-bold uppercase text-sm border-b-2 border-black">
                           Año
                         </th>
-                        <th className="p-3 border-b-2 border-black text-left font-bold uppercase text-sm">
+                        <th className="p-3 text-left font-bold uppercase text-sm border-b-2 border-black">
                           Tasa
                         </th>
-                        <th className="p-3 border-b-2 border-black text-right font-bold uppercase text-sm">
+                        <th className="p-3 text-right font-bold uppercase text-sm border-b-2 border-black">
                           Monto a Pagar
                         </th>
                       </tr>
                     </thead>
                     <tbody className="font-mono">
-                      <tr className="border-b border-black hover:bg-yellow-50">
+                      <tr className="border-b border-gray-300 hover:bg-yellow-100 transition-colors">
                         <td className="p-3 font-bold">2026</td>
                         <td className="p-3">2%</td>
                         <td className="p-3 text-right font-bold">{selectedVehicle["ISCV_2026_2%"]}</td>
                       </tr>
-                      <tr className="border-b border-black hover:bg-yellow-50">
+                      <tr className="border-b border-gray-300 hover:bg-yellow-100 transition-colors">
                         <td className="p-3 font-bold">2025</td>
                         <td className="p-3">1.8%</td>
                         <td className="p-3 text-right font-bold">{selectedVehicle["ISCV_2025_1.8%"]}</td>
                       </tr>
-                      <tr className="border-b border-black hover:bg-yellow-50">
+                      <tr 
+                        className="border-b border-gray-300 hover:bg-yellow-100 transition-colors"
+                      >
                         <td className="p-3 font-bold">2024</td>
                         <td className="p-3">1.6%</td>
                         <td className="p-3 text-right font-bold">{selectedVehicle["ISCV_2024_1.6%"]}</td>
                       </tr>
-                      <tr className="border-b border-black hover:bg-yellow-50">
+                      <tr 
+                        className="border-b border-gray-300 hover:bg-yellow-100 transition-colors"
+                      >
                         <td className="p-3 font-bold">2023</td>
                         <td className="p-3">1.4%</td>
                         <td className="p-3 text-right font-bold">{selectedVehicle["ISCV_2023_1.4%"]}</td>
                       </tr>
-                      <tr className="border-b border-black hover:bg-yellow-50">
+                      <tr 
+                        className="border-b border-gray-300 hover:bg-yellow-100 transition-colors"
+                      >
                         <td className="p-3 font-bold">2022</td>
                         <td className="p-3">1.2%</td>
                         <td className="p-3 text-right font-bold">{selectedVehicle["ISCV_2022_1.2%"]}</td>
                       </tr>
-                      <tr className="border-b border-black hover:bg-yellow-50">
+                      <tr 
+                        className="border-b border-gray-300 hover:bg-yellow-100 transition-colors"
+                      >
                         <td className="p-3 font-bold">2021</td>
                         <td className="p-3">1.0%</td>
                         <td className="p-3 text-right font-bold">{selectedVehicle["ISCV_2021_1.0%"]}</td>
                       </tr>
-                      <tr className="border-b border-black hover:bg-yellow-50">
+                      <tr 
+                        className="border-b border-gray-300 hover:bg-yellow-100 transition-colors"
+                      >
                         <td className="p-3 font-bold">2020</td>
                         <td className="p-3">0.8%</td>
                         <td className="p-3 text-right font-bold">{selectedVehicle["ISCV_2020_0.8%"]}</td>
                       </tr>
-                      <tr className="border-b border-black hover:bg-yellow-50">
+                      <tr 
+                        className="border-b border-gray-300 hover:bg-yellow-100 transition-colors"
+                      >
                         <td className="p-3 font-bold">2019</td>
                         <td className="p-3">0.6%</td>
                         <td className="p-3 text-right font-bold">{selectedVehicle["ISCV_2019_0.6%"]}</td>
                       </tr>
-                      <tr className="border-b border-black hover:bg-yellow-50">
+                      <tr 
+                        className="border-b border-gray-300 hover:bg-yellow-100 transition-colors"
+                      >
                         <td className="p-3 font-bold">2018</td>
                         <td className="p-3">0.4%</td>
                         <td className="p-3 text-right font-bold">{selectedVehicle["ISCV_2018_0.4%"]}</td>
                       </tr>
-                      <tr className="hover:bg-yellow-50">
+                      <tr 
+                        className="border-b border-gray-300 hover:bg-yellow-100 transition-colors"
+                      >
                         <td className="p-3 font-bold">2017</td>
                         <td className="p-3">0.2%</td>
                         <td className="p-3 text-right font-bold">{selectedVehicle["ISCV_2017_0.2%"]}</td>
