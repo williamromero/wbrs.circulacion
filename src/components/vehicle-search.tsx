@@ -3,7 +3,6 @@
 import { useEffect, useState, useMemo } from "react";
 import Papa from "papaparse";
 import { Search, ArrowRight, ArrowLeft, Loader2, Database, X, Calendar, Car } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 type Vehicle = {
   MARCA: string;
@@ -40,7 +39,6 @@ export default function VehicleSearch() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedMarca, setSelectedMarca] = useState("");
   const [selectedLinea, setSelectedLinea] = useState("");
-  const [selectedYear, setSelectedYear] = useState("");
   const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
   const [page, setPage] = useState(1);
   const itemsPerPage = 20;
@@ -100,19 +98,11 @@ export default function VehicleSearch() {
   }, [data, searchTerm, selectedMarca, selectedLinea]);
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+  
   const paginatedData = filteredData.slice(
     (page - 1) * itemsPerPage,
     page * itemsPerPage
   );
-
-  useEffect(() => {
-    setPage(1);
-  }, [searchTerm, selectedMarca, selectedLinea]);
-
-  // Reset linea when marca changes
-  useEffect(() => {
-    setSelectedLinea("");
-  }, [selectedMarca]);
 
   if (loading) {
     return (
@@ -143,7 +133,10 @@ export default function VehicleSearch() {
               className="w-full bg-white text-black border-2 border-white p-4 pr-12 font-mono text-lg focus:outline-none focus:ring-4 focus:ring-gray-500 placeholder:text-gray-400"
               placeholder="EJ: TOYOTA HILUX..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                setPage(1);
+              }}
             />
             <Search className="absolute right-4 top-1/2 -translate-y-1/2 text-black w-6 h-6" />
           </div>
@@ -160,7 +153,11 @@ export default function VehicleSearch() {
             <select
               className="w-full bg-white text-black border-2 border-white p-4 font-mono text-lg focus:outline-none focus:ring-4 focus:ring-gray-500"
               value={selectedMarca}
-              onChange={(e) => setSelectedMarca(e.target.value)}
+              onChange={(e) => {
+                setSelectedMarca(e.target.value);
+                setSelectedLinea(""); // Reset linea when marca changes
+                setPage(1);
+              }}
             >
               <option value="">Todas las marcas</option>
               {uniqueMarcas.map((marca) => (
@@ -179,7 +176,10 @@ export default function VehicleSearch() {
             <select
               className="w-full bg-white text-black border-2 border-white p-4 font-mono text-lg focus:outline-none focus:ring-4 focus:ring-gray-500 disabled:opacity-50 disabled:cursor-not-allowed"
               value={selectedLinea}
-              onChange={(e) => setSelectedLinea(e.target.value)}
+              onChange={(e) => {
+                setSelectedLinea(e.target.value);
+                setPage(1);
+              }}
               disabled={!selectedMarca}
             >
               <option value="">Todos los modelos</option>
@@ -204,6 +204,7 @@ export default function VehicleSearch() {
                 setSelectedMarca("");
                 setSelectedLinea("");
                 setSearchTerm("");
+                setPage(1);
               }}
               className="bg-white text-black border-2 border-white px-4 py-2 font-bold uppercase text-sm hover:bg-gray-200 transition-colors flex items-center gap-2"
             >
