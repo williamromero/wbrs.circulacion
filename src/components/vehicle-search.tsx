@@ -245,12 +245,12 @@ export default function VehicleSearch() {
               <div className="relative">
                 <input
                   type="text"
-                  className="brutal-input pl-10"
+                  className="brutal-input pr-10"
                   placeholder="EJ: P0123ABC..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 opacity-50" />
+                <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 opacity-50" />
               </div>
           </div>
 
