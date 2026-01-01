@@ -1,28 +1,139 @@
 @import "tailwindcss";
 
+/* Light Mode (Default) - Electric Color Palette */
 :root {
+  /* Background colors */
   --background: 255, 255, 255;
-  --foreground: 0, 0, 0;
+  --surface: 248, 248, 255;
+  --surface-elevated: 255, 255, 255;
+  
+  /* Text colors */
+  --foreground: 15, 15, 35;
+  --foreground-secondary: 60, 60, 80;
+  
+  /* Electric accent colors */
+  --electric-cyan: 0, 240, 255;
+  --electric-magenta: 255, 0, 128;
+  --electric-lime: 204, 255, 0;
+  --electric-purple: 139, 0, 255;
+  --electric-blue: 0, 150, 255;
+  
+  /* Primary and secondary colors */
+  --primary: 0, 240, 255;
+  --primary-dark: 0, 180, 200;
+  --secondary: 255, 0, 128;
+  --accent: 204, 255, 0;
+  
+  /* Border and shadow colors */
+  --border-color: 15, 15, 35;
+  --shadow-color: 15, 15, 35;
+  
+  /* Grid pattern */
+  --grid-color: 230, 230, 240;
+}
+
+/* Dark Mode - Electric Color Palette */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Background colors */
+    --background: 10, 10, 25;
+    --surface: 20, 20, 40;
+    --surface-elevated: 30, 30, 50;
+    
+    /* Text colors */
+    --foreground: 240, 240, 255;
+    --foreground-secondary: 180, 180, 200;
+    
+    /* Electric accent colors (slightly brighter for dark mode) */
+    --electric-cyan: 0, 255, 255;
+    --electric-magenta: 255, 20, 147;
+    --electric-lime: 220, 255, 50;
+    --electric-purple: 160, 50, 255;
+    --electric-blue: 50, 180, 255;
+    
+    /* Primary and secondary colors */
+    --primary: 0, 255, 255;
+    --primary-dark: 0, 200, 220;
+    --secondary: 255, 20, 147;
+    --accent: 220, 255, 50;
+    
+    /* Border and shadow colors */
+    --border-color: 0, 255, 255;
+    --shadow-color: 0, 255, 255;
+    
+    /* Grid pattern */
+    --grid-color: 30, 30, 50;
+  }
 }
 
 body {
   color: rgb(var(--foreground));
   background: rgb(var(--background));
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 @layer utilities {
+  .brutal-border {
+    border: 2px solid rgb(var(--border-color));
+  }
+  
   .brutal-shadow {
-    box-shadow: 6px 6px 0px 0px black;
+    box-shadow: 4px 4px 0px 0px rgb(var(--shadow-color));
   }
   
   .brutal-shadow-sm {
-    box-shadow: 3px 3px 0px 0px black;
+    box-shadow: 2px 2px 0px 0px rgb(var(--shadow-color));
+  }
+  
+  .brutal-btn {
+    @apply px-4 py-2 font-bold transition-all;
+    background: rgb(var(--surface-elevated));
+    color: rgb(var(--foreground));
+    border: 2px solid rgb(var(--border-color));
+    box-shadow: 4px 4px 0px 0px rgb(var(--shadow-color));
+  }
+  
+  .brutal-btn:hover {
+    background: rgb(var(--primary));
+    color: rgb(var(--background));
+    border-color: rgb(var(--primary));
+  }
+  
+  .brutal-btn:active {
+    @apply translate-y-1;
+    box-shadow: none;
+  }
+  
+  .brutal-btn:disabled {
+    opacity: 0.5;
+    box-shadow: 2px 2px 0px 0px rgb(var(--shadow-color));
+  }
+  
+  .brutal-input {
+    @apply w-full p-3 focus:outline-none focus:ring-0 rounded-none;
+    background: rgb(var(--surface-elevated));
+    color: rgb(var(--foreground));
+    border: 2px solid rgb(var(--border-color));
+  }
+  
+  .brutal-input::placeholder {
+    color: rgb(var(--foreground-secondary));
+    opacity: 0.6;
   }
   
   .bg-grid-pattern {
     background-size: 40px 40px;
     background-image: 
-      linear-gradient(to right, #e5e5e5 1px, transparent 1px),
-      linear-gradient(to bottom, #e5e5e5 1px, transparent 1px);
+      linear-gradient(to right, rgb(var(--grid-color)) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--grid-color)) 1px, transparent 1px);
+  }
+  
+  /* Electric glow effects */
+  .electric-glow {
+    box-shadow: 0 0 10px rgb(var(--primary)), 0 0 20px rgb(var(--primary));
+  }
+  
+  .electric-text-glow {
+    text-shadow: 0 0 10px rgb(var(--primary)), 0 0 20px rgb(var(--primary));
   }
 }

@@ -107,8 +107,17 @@ export default function VehicleSearch() {
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center h-64 space-y-4">
-        <Loader2 className="w-12 h-12 animate-spin border-4 border-black p-1 rounded-full" />
-        <p className="font-mono text-xl font-bold uppercase tracking-widest">
+        <Loader2 
+          className="w-12 h-12 animate-spin p-1 rounded-full" 
+          style={{ 
+            border: '4px solid rgb(var(--border-color))',
+            color: 'rgb(var(--primary))'
+          }}
+        />
+        <p 
+          className="font-mono text-xl font-bold uppercase tracking-widest"
+          style={{ color: 'rgb(var(--foreground))' }}
+        >
           Cargando Datos...
         </p>
       </div>
@@ -118,7 +127,13 @@ export default function VehicleSearch() {
   return (
     <div className="space-y-8">
       {/* Advanced Search Section */}
-      <div className="bg-black text-white p-6 brutal-shadow border-2 border-black">
+      <div 
+        className="p-6 brutal-shadow brutal-border"
+        style={{ 
+          background: 'rgb(var(--primary))',
+          color: 'rgb(var(--background))'
+        }}
+      >
         <h2 className="text-xl font-bold mb-4 uppercase tracking-widest flex items-center gap-2">
           <Search className="w-5 h-5" />
           Búsqueda Avanzada
@@ -132,7 +147,7 @@ export default function VehicleSearch() {
           <div className="relative">
             <input
               type="text"
-              className="w-full bg-white text-black border-2 border-white p-4 pr-12 font-mono text-lg focus:outline-none focus:ring-4 focus:ring-gray-500 placeholder:text-gray-400"
+              className="brutal-input"
               placeholder="EJ: TOYOTA HILUX..."
               value={searchTerm}
               onChange={(e) => {
@@ -140,7 +155,10 @@ export default function VehicleSearch() {
                 setPage(1);
               }}
             />
-            <Search className="absolute right-4 top-1/2 -translate-y-1/2 text-black w-6 h-6" />
+            <Search 
+              className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6"
+              style={{ color: 'rgb(var(--foreground))' }}
+            />
           </div>
         </div>
 
@@ -153,7 +171,7 @@ export default function VehicleSearch() {
               Marca
             </label>
             <select
-              className="w-full bg-white text-black border-2 border-black p-4 font-mono text-lg focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+              className="brutal-input"
               value={selectedMarca}
               onChange={(e) => {
                 setSelectedMarca(e.target.value);
@@ -176,7 +194,7 @@ export default function VehicleSearch() {
               Modelo / Línea
             </label>
             <select
-              className="w-full bg-white text-black border-2 border-black p-4 font-mono text-lg focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+              className="brutal-input"
               value={selectedLinea}
               onChange={(e) => {
                 setSelectedLinea(e.target.value);
@@ -208,7 +226,7 @@ export default function VehicleSearch() {
                 setSearchTerm("");
                 setPage(1);
               }}
-              className="px-4 py-2 bg-white text-black border-2 border-black font-bold hover:bg-black hover:text-white brutal-shadow-sm active:translate-y-1 active:shadow-none transition-all flex items-center gap-2"
+              className="brutal-btn flex items-center gap-2"
             >
               <X className="w-4 h-4" />
               Limpiar Filtros
@@ -218,19 +236,28 @@ export default function VehicleSearch() {
       </div>
 
       {/* Results Table */}
-      <div className="overflow-x-auto bg-white border-2 border-black brutal-shadow">
+      <div 
+        className="overflow-x-auto brutal-shadow brutal-border"
+        style={{ background: 'rgb(var(--surface-elevated))' }}
+      >
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-pink-500 text-white uppercase text-xs md:text-sm tracking-wider">
-              <th className="p-3 md:p-4 sticky left-0 z-10 border-b-2 border-r-2 border-black bg-pink-500">Marca / Línea</th>
-              <th className="p-3 md:p-4 text-center border-b-2 border-r-2 border-black">2026</th>
-              <th className="p-3 md:p-4 text-center border-b-2 border-r-2 border-black">2025</th>
-              <th className="p-3 md:p-4 text-center border-b-2 border-r-2 border-black">2024</th>
-              <th className="p-3 md:p-4 text-center border-b-2 border-r-2 border-black">2023</th>
-              <th className="p-3 md:p-4 text-center border-b-2 border-r-2 border-black">2022</th>
-              <th className="p-3 md:p-4 text-center border-b-2 border-r-2 border-black">2021</th>
-              <th className="p-3 md:p-4 text-center border-b-2 border-r-2 border-black">2020</th>
-              <th className="p-3 md:p-4 text-center border-b-2 border-black">Más Atrás</th>
+            <tr 
+              className="uppercase text-xs md:text-sm tracking-wider"
+              style={{ 
+                background: 'rgb(var(--secondary))',
+                color: 'rgb(var(--background))'
+              }}
+            >
+              <th className="p-3 md:p-4 sticky left-0 z-10" style={{ borderBottom: '2px solid rgb(var(--border-color))', borderRight: '2px solid rgb(var(--border-color))', background: 'rgb(var(--secondary))' }}>Marca / Línea</th>
+              <th className="p-3 md:p-4 text-center" style={{ borderBottom: '2px solid rgb(var(--border-color))', borderRight: '2px solid rgb(var(--border-color))' }}>2026</th>
+              <th className="p-3 md:p-4 text-center" style={{ borderBottom: '2px solid rgb(var(--border-color))', borderRight: '2px solid rgb(var(--border-color))' }}>2025</th>
+              <th className="p-3 md:p-4 text-center" style={{ borderBottom: '2px solid rgb(var(--border-color))', borderRight: '2px solid rgb(var(--border-color))' }}>2024</th>
+              <th className="p-3 md:p-4 text-center" style={{ borderBottom: '2px solid rgb(var(--border-color))', borderRight: '2px solid rgb(var(--border-color))' }}>2023</th>
+              <th className="p-3 md:p-4 text-center" style={{ borderBottom: '2px solid rgb(var(--border-color))', borderRight: '2px solid rgb(var(--border-color))' }}>2022</th>
+              <th className="p-3 md:p-4 text-center" style={{ borderBottom: '2px solid rgb(var(--border-color))', borderRight: '2px solid rgb(var(--border-color))' }}>2021</th>
+              <th className="p-3 md:p-4 text-center" style={{ borderBottom: '2px solid rgb(var(--border-color))', borderRight: '2px solid rgb(var(--border-color))' }}>2020</th>
+              <th className="p-3 md:p-4 text-center" style={{ borderBottom: '2px solid rgb(var(--border-color))' }}>Más Atrás</th>
             </tr>
           </thead>
           <tbody className="font-mono text-xs md:text-sm">
@@ -238,37 +265,49 @@ export default function VehicleSearch() {
               <tr
                 key={index}
                 onClick={() => setSelectedVehicle(row)}
-                className="border-b-2 border-black transition-colors cursor-pointer hover:bg-yellow-300"
+                className="border-b-2 transition-colors cursor-pointer"
+                style={{ 
+                  borderBottom: '2px solid rgb(var(--border-color))',
+                  color: 'rgb(var(--foreground))'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgb(var(--accent))';
+                  e.currentTarget.style.color = 'rgb(var(--background))';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'transparent';
+                  e.currentTarget.style.color = 'rgb(var(--foreground))';
+                }}
               >
-                <td className="p-3 md:p-4 sticky left-0 border-r-2 border-black bg-white">
+                <td className="p-3 md:p-4 sticky left-0" style={{ borderRight: '2px solid rgb(var(--border-color))', background: 'inherit' }}>
                   <div className="font-bold">{row.MARCA}</div>
-                  <div className="text-xs text-gray-600">{row.LINEA}</div>
-                  <div className="text-xs mt-1 text-gray-600">{row.CODIGO}</div>
+                  <div className="text-xs opacity-60">{row.LINEA}</div>
+                  <div className="text-xs mt-1 opacity-60">{row.CODIGO}</div>
                 </td>
-                <td className="p-3 md:p-4 text-center font-bold border-r-2 border-black bg-lime-300">
+                <td className="p-3 md:p-4 text-center font-bold" style={{ borderRight: '2px solid rgb(var(--border-color))', background: 'rgb(var(--accent))', color: 'rgb(var(--background))' }}>
                   {row["ISCV_2026_2%"]}
                 </td>
-                <td className="p-3 md:p-4 text-center border-r-2 border-black">
+                <td className="p-3 md:p-4 text-center" style={{ borderRight: '2px solid rgb(var(--border-color))' }}>
                   {row["ISCV_2025_1.8%"]}
                 </td>
-                <td className="p-3 md:p-4 text-center border-r-2 border-black bg-lime-300">
+                <td className="p-3 md:p-4 text-center" style={{ borderRight: '2px solid rgb(var(--border-color))', background: 'rgb(var(--accent))', color: 'rgb(var(--background))' }}>
                   {row["ISCV_2024_1.6%"]}
                 </td>
-                <td className="p-3 md:p-4 text-center border-r-2 border-black">
+                <td className="p-3 md:p-4 text-center" style={{ borderRight: '2px solid rgb(var(--border-color))' }}>
                   {row["ISCV_2023_1.4%"]}
                 </td>
-                <td className="p-3 md:p-4 text-center border-r-2 border-black bg-lime-300">
+                <td className="p-3 md:p-4 text-center" style={{ borderRight: '2px solid rgb(var(--border-color))', background: 'rgb(var(--accent))', color: 'rgb(var(--background))' }}>
                   {row["ISCV_2022_1.2%"]}
                 </td>
-                <td className="p-3 md:p-4 text-center border-r-2 border-black">
+                <td className="p-3 md:p-4 text-center" style={{ borderRight: '2px solid rgb(var(--border-color))' }}>
                   {row["ISCV_2021_1.0%"]}
                 </td>
-                <td className="p-3 md:p-4 text-center border-r-2 border-black bg-lime-300">
+                <td className="p-3 md:p-4 text-center" style={{ borderRight: '2px solid rgb(var(--border-color))', background: 'rgb(var(--accent))', color: 'rgb(var(--background))' }}>
                   {row["ISCV_2020_0.8%"]}
                 </td>
                 <td className="p-3 md:p-4 text-center">
                   <div className="text-xs">2019-2017</div>
-                  <div className="text-xs text-gray-600">Ver detalles →</div>
+                  <div className="text-xs opacity-60">Ver detalles →</div>
                 </td>
               </tr>
             ))}
@@ -285,21 +324,24 @@ export default function VehicleSearch() {
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex justify-between items-center p-4 bg-white border-2 border-black brutal-shadow">
+        <div 
+          className="flex justify-between items-center p-4 brutal-shadow brutal-border"
+          style={{ background: 'rgb(var(--surface-elevated))' }}
+        >
           <button
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page === 1}
-            className="px-4 py-2 bg-white border-2 border-black font-bold hover:bg-black hover:text-white disabled:opacity-50 disabled:cursor-not-allowed brutal-shadow-sm active:translate-y-1 active:shadow-none transition-all flex items-center gap-2"
+            className="brutal-btn flex items-center gap-2"
           >
             <ArrowLeft className="w-4 h-4" /> ANTERIOR
           </button>
-          <span className="font-bold font-mono">
+          <span className="font-bold font-mono" style={{ color: 'rgb(var(--foreground))' }}>
             PÁGINA {page} DE {totalPages}
           </span>
           <button
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page === totalPages}
-            className="px-4 py-2 bg-white border-2 border-black font-bold hover:bg-black hover:text-white disabled:opacity-50 disabled:cursor-not-allowed brutal-shadow-sm active:translate-y-1 active:shadow-none transition-all flex items-center gap-2"
+            className="brutal-btn flex items-center gap-2"
           >
             SIGUIENTE <ArrowRight className="w-4 h-4" />
           </button>
@@ -308,10 +350,23 @@ export default function VehicleSearch() {
 
       {/* Vehicle Details Modal */}
       {selectedVehicle && (
-        <div className="fixed inset-0 flex items-center justify-center p-4 z-50 bg-black bg-opacity-50">
-          <div className="bg-white border-4 border-black brutal-shadow max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 flex items-center justify-center p-4 z-50" style={{ background: 'rgba(0, 0, 0, 0.5)' }}>
+          <div 
+            className="brutal-shadow max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+            style={{ 
+              background: 'rgb(var(--surface-elevated))',
+              border: '4px solid rgb(var(--border-color))'
+            }}
+          >
             {/* Modal Header */}
-            <div className="bg-pink-500 text-white p-6 flex justify-between items-start sticky top-0 z-10 border-b-4 border-black">
+            <div 
+              className="p-6 flex justify-between items-start sticky top-0 z-10"
+              style={{ 
+                background: 'rgb(var(--secondary))',
+                color: 'rgb(var(--background))',
+                borderBottom: '4px solid rgb(var(--border-color))'
+              }}
+            >
               <div>
                 <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tighter">
                   {selectedVehicle.MARCA}
@@ -323,7 +378,7 @@ export default function VehicleSearch() {
               </div>
               <button
                 onClick={() => setSelectedVehicle(null)}
-                className="px-4 py-2 bg-white text-black border-2 border-black font-bold hover:bg-black hover:text-white brutal-shadow-sm active:translate-y-1 active:shadow-none transition-all p-2"
+                className="brutal-btn p-2"
               >
                 <X className="w-6 h-6" />
               </button>
@@ -333,11 +388,17 @@ export default function VehicleSearch() {
             <div className="p-6 space-y-6">
               {/* Vehicle Details */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="border-2 border-black bg-gray-50 p-4">
-                  <h3 className="font-bold uppercase text-sm mb-3 pb-2 border-b-2 border-black">
+                <div className="brutal-border p-4" style={{ background: 'rgb(var(--surface))' }}>
+                  <h3 
+                    className="font-bold uppercase text-sm mb-3 pb-2"
+                    style={{ 
+                      borderBottom: '2px solid rgb(var(--border-color))',
+                      color: 'rgb(var(--foreground))'
+                    }}
+                  >
                     Información General
                   </h3>
-                  <div className="space-y-2 text-sm font-mono">
+                  <div className="space-y-2 text-sm font-mono" style={{ color: 'rgb(var(--foreground))' }}>
                     <div className="flex justify-between">
                       <span className="font-bold">Tipo:</span>
                       <span>{selectedVehicle.TIPO_VEHICULO}</span>
@@ -357,11 +418,17 @@ export default function VehicleSearch() {
                   </div>
                 </div>
 
-                <div className="border-2 border-black bg-gray-50 p-4">
-                  <h3 className="font-bold uppercase text-sm mb-3 pb-2 border-b-2 border-black">
+                <div className="brutal-border p-4" style={{ background: 'rgb(var(--surface))' }}>
+                  <h3 
+                    className="font-bold uppercase text-sm mb-3 pb-2"
+                    style={{ 
+                      borderBottom: '2px solid rgb(var(--border-color))',
+                      color: 'rgb(var(--foreground))'
+                    }}
+                  >
                     Especificaciones Técnicas
                   </h3>
-                  <div className="space-y-2 text-sm font-mono">
+                  <div className="space-y-2 text-sm font-mono" style={{ color: 'rgb(var(--foreground))' }}>
                     <div className="flex justify-between">
                       <span className="font-bold">Cilindraje:</span>
                       <span>{selectedVehicle.CILINDRAJE || "N/A"}</span>
@@ -383,7 +450,13 @@ export default function VehicleSearch() {
               </div>
 
               {/* Value */}
-              <div className="border-2 border-black bg-yellow-300 p-4">
+              <div 
+                className="brutal-border p-4"
+                style={{ 
+                  background: 'rgb(var(--accent))',
+                  color: 'rgb(var(--background))'
+                }}
+              >
                 <div className="flex justify-between items-center">
                   <span className="font-bold uppercase text-lg">Valor del Vehículo:</span>
                   <span className="text-2xl font-black">{selectedVehicle.VALOR_VEHICULO}</span>
@@ -391,8 +464,15 @@ export default function VehicleSearch() {
               </div>
 
               {/* Payment Information by Year */}
-              <div className="border-2 border-black">
-                <div className="bg-black text-white p-4 border-b-2 border-black">
+              <div className="brutal-border">
+                <div 
+                  className="p-4"
+                  style={{ 
+                    background: 'rgb(var(--primary))',
+                    color: 'rgb(var(--background))',
+                    borderBottom: '2px solid rgb(var(--border-color))'
+                  }}
+                >
                   <h3 className="font-bold uppercase text-lg flex items-center gap-2">
                     <Calendar className="w-5 h-5" />
                     Impuesto de Circulación por Año (ISCV)
@@ -401,80 +481,132 @@ export default function VehicleSearch() {
                 <div className="overflow-x-auto">
                   <table className="w-full border-collapse">
                     <thead>
-                      <tr className="bg-gray-100">
-                        <th className="p-3 text-left font-bold uppercase text-sm border-b-2 border-black">
+                      <tr style={{ background: 'rgb(var(--surface))' }}>
+                        <th 
+                          className="p-3 text-left font-bold uppercase text-sm"
+                          style={{ 
+                            borderBottom: '2px solid rgb(var(--border-color))',
+                            color: 'rgb(var(--foreground))'
+                          }}
+                        >
                           Año
                         </th>
-                        <th className="p-3 text-left font-bold uppercase text-sm border-b-2 border-black">
+                        <th 
+                          className="p-3 text-left font-bold uppercase text-sm"
+                          style={{ 
+                            borderBottom: '2px solid rgb(var(--border-color))',
+                            color: 'rgb(var(--foreground))'
+                          }}
+                        >
                           Tasa
                         </th>
-                        <th className="p-3 text-right font-bold uppercase text-sm border-b-2 border-black">
+                        <th 
+                          className="p-3 text-right font-bold uppercase text-sm"
+                          style={{ 
+                            borderBottom: '2px solid rgb(var(--border-color))',
+                            color: 'rgb(var(--foreground))'
+                          }}
+                        >
                           Monto a Pagar
                         </th>
                       </tr>
                     </thead>
-                    <tbody className="font-mono">
-                      <tr className="border-b border-gray-300 hover:bg-yellow-100 transition-colors">
+                    <tbody className="font-mono" style={{ color: 'rgb(var(--foreground))' }}>
+                      <tr 
+                        className="transition-colors"
+                        style={{ borderBottom: '1px solid rgb(var(--grid-color))' }}
+                        onMouseEnter={(e) => e.currentTarget.style.background = 'rgb(var(--accent))'}
+                        onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                      >
                         <td className="p-3 font-bold">2026</td>
                         <td className="p-3">2%</td>
                         <td className="p-3 text-right font-bold">{selectedVehicle["ISCV_2026_2%"]}</td>
                       </tr>
-                      <tr className="border-b border-gray-300 hover:bg-yellow-100 transition-colors">
+                      <tr 
+                        className="transition-colors"
+                        style={{ borderBottom: '1px solid rgb(var(--grid-color))' }}
+                        onMouseEnter={(e) => e.currentTarget.style.background = 'rgb(var(--accent))'}
+                        onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                      >
                         <td className="p-3 font-bold">2025</td>
                         <td className="p-3">1.8%</td>
                         <td className="p-3 text-right font-bold">{selectedVehicle["ISCV_2025_1.8%"]}</td>
                       </tr>
                       <tr 
-                        className="border-b border-gray-300 hover:bg-yellow-100 transition-colors"
+                        className="transition-colors"
+                        style={{ borderBottom: '1px solid rgb(var(--grid-color))' }}
+                        onMouseEnter={(e) => e.currentTarget.style.background = 'rgb(var(--accent))'}
+                        onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                       >
                         <td className="p-3 font-bold">2024</td>
                         <td className="p-3">1.6%</td>
                         <td className="p-3 text-right font-bold">{selectedVehicle["ISCV_2024_1.6%"]}</td>
                       </tr>
                       <tr 
-                        className="border-b border-gray-300 hover:bg-yellow-100 transition-colors"
+                        className="transition-colors"
+                        style={{ borderBottom: '1px solid rgb(var(--grid-color))' }}
+                        onMouseEnter={(e) => e.currentTarget.style.background = 'rgb(var(--accent))'}
+                        onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                       >
                         <td className="p-3 font-bold">2023</td>
                         <td className="p-3">1.4%</td>
                         <td className="p-3 text-right font-bold">{selectedVehicle["ISCV_2023_1.4%"]}</td>
                       </tr>
                       <tr 
-                        className="border-b border-gray-300 hover:bg-yellow-100 transition-colors"
+                        className="transition-colors"
+                        style={{ borderBottom: '1px solid rgb(var(--grid-color))' }}
+                        onMouseEnter={(e) => e.currentTarget.style.background = 'rgb(var(--accent))'}
+                        onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                       >
                         <td className="p-3 font-bold">2022</td>
                         <td className="p-3">1.2%</td>
                         <td className="p-3 text-right font-bold">{selectedVehicle["ISCV_2022_1.2%"]}</td>
                       </tr>
                       <tr 
-                        className="border-b border-gray-300 hover:bg-yellow-100 transition-colors"
+                        className="transition-colors"
+                        style={{ borderBottom: '1px solid rgb(var(--grid-color))' }}
+                        onMouseEnter={(e) => e.currentTarget.style.background = 'rgb(var(--accent))'}
+                        onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                       >
                         <td className="p-3 font-bold">2021</td>
                         <td className="p-3">1.0%</td>
                         <td className="p-3 text-right font-bold">{selectedVehicle["ISCV_2021_1.0%"]}</td>
                       </tr>
                       <tr 
-                        className="border-b border-gray-300 hover:bg-yellow-100 transition-colors"
+                        className="transition-colors"
+                        style={{ borderBottom: '1px solid rgb(var(--grid-color))' }}
+                        onMouseEnter={(e) => e.currentTarget.style.background = 'rgb(var(--accent))'}
+                        onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                       >
                         <td className="p-3 font-bold">2020</td>
                         <td className="p-3">0.8%</td>
                         <td className="p-3 text-right font-bold">{selectedVehicle["ISCV_2020_0.8%"]}</td>
                       </tr>
                       <tr 
-                        className="border-b border-gray-300 hover:bg-yellow-100 transition-colors"
+                        className="transition-colors"
+                        style={{ borderBottom: '1px solid rgb(var(--grid-color))' }}
+                        onMouseEnter={(e) => e.currentTarget.style.background = 'rgb(var(--accent))'}
+                        onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                       >
                         <td className="p-3 font-bold">2019</td>
                         <td className="p-3">0.6%</td>
                         <td className="p-3 text-right font-bold">{selectedVehicle["ISCV_2019_0.6%"]}</td>
                       </tr>
                       <tr 
-                        className="border-b border-gray-300 hover:bg-yellow-100 transition-colors"
+                        className="transition-colors"
+                        style={{ borderBottom: '1px solid rgb(var(--grid-color))' }}
+                        onMouseEnter={(e) => e.currentTarget.style.background = 'rgb(var(--accent))'}
+                        onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                       >
                         <td className="p-3 font-bold">2018</td>
                         <td className="p-3">0.4%</td>
                         <td className="p-3 text-right font-bold">{selectedVehicle["ISCV_2018_0.4%"]}</td>
                       </tr>
                       <tr 
-                        className="border-b border-gray-300 hover:bg-yellow-100 transition-colors"
+                        className="transition-colors"
+                        style={{ borderBottom: '1px solid rgb(var(--grid-color))' }}
+                        onMouseEnter={(e) => e.currentTarget.style.background = 'rgb(var(--accent))'}
+                        onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                       >
                         <td className="p-3 font-bold">2017</td>
                         <td className="p-3">0.2%</td>
