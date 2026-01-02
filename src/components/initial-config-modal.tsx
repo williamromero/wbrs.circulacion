@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { X, Info, Search, FileText, CheckCircle } from "lucide-react";
+import { X, Info, Search, FileText, CheckCircle, AlertTriangle } from "lucide-react";
 
 export default function InitialConfigModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -91,13 +91,24 @@ export default function InitialConfigModal() {
             </div>
           </div>
           
-          <div className="bg-[rgb(var(--secondary))] p-3 rounded-lg border border-[rgb(var(--border))]">
-             <p className="text-xs text-[rgb(var(--muted))] flex items-start gap-2">
-                <Info className="w-4 h-4 shrink-0 mt-0.5" />
-                <span>
-                   Esta es una herramienta de consulta no oficial basada en la tabla publicada por la SAT. Para trámites oficiales, visita siempre los canales gubernamentales.
-                </span>
-             </p>
+          <div className="space-y-3">
+            <div className="bg-[rgb(var(--secondary))] p-3 rounded-lg border border-[rgb(var(--border))]">
+              <p className="text-xs text-[rgb(var(--muted))] flex items-start gap-2">
+                  <Info className="w-4 h-4 shrink-0 mt-0.5" />
+                  <span>
+                    Esta es una herramienta de consulta no oficial basada en la tabla publicada por la SAT. Para trámites oficiales, visita siempre los canales gubernamentales.
+                  </span>
+              </p>
+            </div>
+
+            <div className="bg-amber-50 p-3 rounded-lg border border-amber-200">
+              <p className="text-[10px] md:text-xs text-amber-800 flex items-start gap-2 leading-tight">
+                  <AlertTriangle className="w-4 h-4 shrink-0 text-amber-600" />
+                  <span>
+                    <strong>AVISO IMPORTANTE:</strong> Se ha detectado que algunos datos son imprecisos para la marca <strong>MAZDA</strong>, ya que la base de datos oficial incluye modelos y líneas inexistentes.
+                  </span>
+              </p>
+            </div>
           </div>
         </div>
 
