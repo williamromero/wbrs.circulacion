@@ -13,7 +13,7 @@ export default function PaymentTutorialModal() {
         className="flex items-center gap-2 text-xs md:text-sm font-bold uppercase tracking-wide text-[rgb(var(--muted))] hover:text-[rgb(var(--primary))] transition-colors"
       >
         <YoutubeIcon className="w-5 h-5 text-red-600" />
-        <span>Genera el formulario SAT-4091</span>
+        <span>Genera formulario SAT-4091</span>
       </button>
 
       {isOpen && (

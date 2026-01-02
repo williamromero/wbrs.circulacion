@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { X, Info, Search, FileText, CheckCircle, AlertTriangle } from "lucide-react";
+import { X, Info, Search, FileText, CheckCircle, AlertTriangle, Link } from "lucide-react";
 
 export default function InitialConfigModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -103,10 +103,13 @@ export default function InitialConfigModal() {
 
             <div className="bg-amber-50 p-3 rounded-lg border border-amber-200">
               <p className="text-[10px] md:text-xs text-amber-800 flex items-start gap-2 leading-tight">
-                  <AlertTriangle className="w-4 h-4 shrink-0 text-amber-600" />
-                  <span>
-                    <strong>AVISO IMPORTANTE:</strong> Se ha detectado que algunos datos son imprecisos para la marca <strong>MAZDA</strong>, ya que la base de datos oficial incluye modelos y líneas inexistentes.
-                  </span>
+                <AlertTriangle className="w-4 h-4 shrink-0 text-amber-600" />
+                <span>
+                  <strong>AVISO IMPORTANTE:</strong> Se ha detectado que algunos datos son imprecisos para la marca <strong>MAZDA</strong>, ya que el documento PDF emitido y publicado en la página oficial, omite algunos tipos y el valor a pagar difiere con el del formulario de&nbsp;
+                  <a href="https://portal.sat.gob.gt/portal/impresion-calcomania/" target="_blank" rel="noopener noreferrer" className="font-bold">Consulta de Vehiculos
+                    <Link className="w-3 h-3 inline-block ml-1" />
+                  </a>.
+                </span>
               </p>
             </div>
           </div>
