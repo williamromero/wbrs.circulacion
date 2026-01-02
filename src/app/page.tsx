@@ -1,5 +1,6 @@
 import VehicleSearch from "@/components/vehicle-search";
 import ThemeToggle from "@/components/theme-toggle";
+import PaymentTutorialModal from "@/components/payment-tutorial-modal";
 import { ExternalLink, Heart } from "lucide-react";
 import Image from "next/image";
 
@@ -36,15 +37,18 @@ export default function Home() {
             </div>
             <div className="text-right hidden md:block text-[rgb(var(--foreground))]">
               <p className="font-bold text-lg uppercase tracking-tight">Consulta de Valores</p>
-              <div className="flex items-center justify-end gap-1.5 text-sm text-[rgb(var(--muted))] hover:text-[rgb(var(--primary))] transition-opacity">
-                <span>BASE DE DATOS OFICIAL</span>
-                <a 
-                  href="https://portal.sat.gob.gt/portal/tablas-y-acuerdos-vehiculos/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                </a>
+              <div className="flex flex-col items-end gap-2 mt-1">
+                <div className="flex items-center justify-end gap-1.5 text-sm text-[rgb(var(--muted))] hover:text-[rgb(var(--primary))] transition-opacity">
+                  <span>BASE DE DATOS OFICIAL</span>
+                  <a 
+                    href="https://portal.sat.gob.gt/portal/tablas-y-acuerdos-vehiculos/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                </div>
+                <PaymentTutorialModal />
               </div>
             </div>
           </div>
