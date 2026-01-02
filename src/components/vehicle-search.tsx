@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useMemo, useRef } from "react";
 import Papa from "papaparse";
-import { Search, ArrowRight, ArrowLeft, Loader2, Database, X, Calendar, Car, Filter, Check, ChevronDown } from "lucide-react";
+import { Search, ArrowRight, ArrowLeft, Loader2, Database, X, Calendar, Car, Filter, Check, ChevronDown, Info } from "lucide-react";
 
 // --- Types ---
 type Vehicle = {
@@ -87,24 +87,24 @@ function SearchableSelect({
   return (
     <div className="relative" ref={wrapperRef}>
       <div 
-        className={`brutal-input flex items-center justify-between cursor-pointer ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+        className={`brutal-input flex items-center justify-between cursor-pointer rounded-lg ${disabled ? 'opacity-50 cursor-not-allowed bg-slate-50' : ''}`}
         onClick={() => !disabled && setIsOpen(!isOpen)}
       >
-        <span className={!value ? "text-[rgb(var(--muted))]" : ""}>
+        <span className={!value ? "text-[rgb(var(--muted))]" : "font-medium"}>
           {value || placeholder}
         </span>
-        <ChevronDown className="w-4 h-4" />
+        <ChevronDown className="w-4 h-4 text-[rgb(var(--muted))]" />
       </div>
 
       {isOpen && !disabled && (
         <div 
-          className="absolute z-50 w-full mt-1 max-h-60 overflow-y-auto brutal-border brutal-shadow"
+          className="absolute z-50 w-full mt-1 max-h-60 overflow-y-auto border border-[rgb(var(--border))] rounded-lg shadow-lg"
           style={{ background: 'rgb(var(--background))' }}
         >
-          <div className="p-2 sticky top-0 bg-[rgb(var(--background))] border-b-2 border-[rgb(var(--border))]">
+          <div className="p-2 sticky top-0 bg-[rgb(var(--background))] border-b border-[rgb(var(--border))]">
             <input
               type="text"
-              className="w-full p-2 border-2 border-[rgb(var(--border))] focus:outline-none text-sm"
+              className="w-full p-2 border border-[rgb(var(--border))] rounded-md focus:outline-none focus:ring-2 focus:ring-[rgb(var(--primary))] focus:border-transparent text-sm"
               placeholder="Filtrar..."
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
@@ -115,7 +115,7 @@ function SearchableSelect({
             filteredOptions.map((opt) => (
               <div
                 key={opt}
-                className="p-2 hover:bg-[rgb(var(--accent))] hover:text-[rgb(var(--primary))] cursor-pointer transition-colors text-sm"
+                className="p-2.5 hover:bg-[rgb(var(--secondary))] cursor-pointer transition-colors text-sm"
                 onClick={() => {
                   onChange(opt);
                   setIsOpen(false);
@@ -202,14 +202,10 @@ export default function VehicleSearch() {
     return (
       <div className="flex flex-col items-center justify-center h-64 space-y-4">
         <Loader2 
-          className="w-12 h-12 animate-spin p-1 rounded-full" 
-          style={{ 
-            border: '4px solid rgb(var(--border))',
-            color: 'rgb(var(--foreground))'
-          }}
+          className="w-12 h-12 animate-spin text-[rgb(var(--primary))]" 
         />
-        <p className="font-mono text-xl font-bold uppercase tracking-widest">
-          Cargando Datos...
+        <p className="font-medium text-lg text-[rgb(var(--muted))]">
+          Cargando base de datos...
         </p>
       </div>
     );
@@ -219,18 +215,18 @@ export default function VehicleSearch() {
     <div className="space-y-8">
       {/* Advanced Search Section */}
       <div 
-        className="p-4 md:p-6 brutal-shadow brutal-border transition-colors duration-300"
+        className="p-6 md:p-8 rounded-2xl shadow-sm border border-[rgb(var(--border))]"
         style={{ background: 'rgb(var(--secondary))' }}
       >
-        <h2 className="text-xl font-bold mb-6 uppercase tracking-widest flex items-center gap-2">
-          <Filter className="w-5 h-5" />
+        <h2 className="text-xl font-bold mb-6 flex items-center gap-2 text-[rgb(var(--foreground))]">
+          <Filter className="w-5 h-5 text-[rgb(var(--primary))]" />
           Filtros de Búsqueda
         </h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {/* Marca Filter */}
           <div className="lg:col-span-2">
-            <label className="block text-xs font-bold mb-2 uppercase tracking-widest">Marca</label>
+            <label className="block text-sm font-semibold mb-2 text-[rgb(var(--foreground))]">Marca</label>
             <SearchableSelect 
               options={uniqueMarcas}
               value={selectedMarca}
@@ -238,39 +234,39 @@ export default function VehicleSearch() {
                 setSelectedMarca(val);
                 setSelectedLinea("");
               }}
-              placeholder="Todas las Marcas"
+              placeholder="Seleccionar Marca"
             />
           </div>
 
           {/* Linea Filter */}
           <div className="lg:col-span-1">
-             <label className="block text-xs font-bold mb-2 uppercase tracking-widest">Línea</label>
+             <label className="block text-sm font-semibold mb-2 text-[rgb(var(--foreground))]">Línea</label>
              <SearchableSelect 
               options={uniqueLineas}
               value={selectedLinea}
               onChange={setSelectedLinea}
-              placeholder="Todas las Líneas"
+              placeholder="Seleccionar Línea"
               disabled={!selectedMarca && uniqueLineas.length > 100} // Opt optimization
             />
           </div>
 
            {/* Type Filter */}
            <div className="lg:col-span-1">
-             <label className="block text-xs font-bold mb-2 uppercase tracking-widest">Tipo</label>
+             <label className="block text-sm font-semibold mb-2 text-[rgb(var(--foreground))]">Tipo</label>
              <SearchableSelect 
               options={uniqueTypes}
               value={selectedType}
               onChange={setSelectedType}
-              placeholder="Todos los Tipos"
+              placeholder="Seleccionar Tipo"
             />
           </div>
         </div>
 
         {/* Results Count and Clear Filters */}
-        <div className="mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-4 border-t-2 border-[rgb(var(--border))]">
-          <div className="flex items-center gap-2 text-sm font-mono">
+        <div className="mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-6 border-t border-[rgb(var(--border))]">
+          <div className="flex items-center gap-2 text-sm text-[rgb(var(--muted))]">
             <Database className="w-4 h-4" />
-            <span className="font-bold">{filteredData.length}</span> RESULTADOS
+            <span>Encontrados: <strong className="text-[rgb(var(--foreground))]">{filteredData.length}</strong> vehículos</span>
           </div>
           {(selectedMarca || selectedLinea || selectedType) && (
             <button
@@ -279,69 +275,73 @@ export default function VehicleSearch() {
                 setSelectedLinea("");
                 setSelectedType("");
               }}
-              className="brutal-btn w-full sm:w-auto text-xs"
+              className="brutal-btn w-full sm:w-auto text-xs px-4 rounded-full border-none shadow-none bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700"
             >
               <X className="w-4 h-4" />
-              Limpiar Todo
+              Limpiar filtros
             </button>
           )}
         </div>
       </div>
 
       {/* Results Table */}
-      <div className="brutal-shadow brutal-border overflow-hidden bg-[rgb(var(--background))]">
+      <div className="rounded-xl border border-[rgb(var(--border))] overflow-hidden bg-[rgb(var(--background))] shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr 
-                className="uppercase text-xs tracking-wider"
+                className="text-xs font-semibold tracking-wide uppercase border-b border-[rgb(var(--border))]"
                 style={{ 
-                  background: 'rgb(var(--foreground))',
-                  color: 'rgb(var(--background))'
+                  background: 'rgb(var(--secondary))',
+                  color: 'rgb(var(--muted))'
                 }}
               >
-                <th className="p-3 border-r border-[rgb(var(--background))] hidden md:table-cell">Código</th>
-                <th className="p-3 border-r border-[rgb(var(--background))]">Marca / Línea / Tipo</th>
-                <th className="p-3 border-r border-[rgb(var(--background))] hidden md:table-cell">Tipo</th>
-                <th className="p-3 border-r border-[rgb(var(--background))] text-center hidden md:table-cell">C.C.</th>
-                <th className="p-3 border-r border-[rgb(var(--background))] text-center hidden md:table-cell">Combustible</th>
-                <th className="p-3 text-center bg-[rgb(var(--primary))] text-[rgb(var(--primary-foreground))]">Acción</th>
+                <th className="p-4 hidden md:table-cell">Código</th>
+                <th className="p-4">Marca / Línea / Tipo</th>
+                <th className="p-4 hidden md:table-cell">Tipo</th>
+                <th className="p-4 text-center hidden md:table-cell">C.C.</th>
+                <th className="p-4 text-center hidden md:table-cell">Combustible</th>
+                <th className="p-4 text-center">Acción</th>
               </tr>
             </thead>
-            <tbody className="font-mono text-sm">
+            <tbody className="text-sm">
               {paginatedData.map((row, index) => (
                 <tr
                   key={index}
                   onClick={() => setSelectedVehicle(row)}
-                  className="cursor-pointer group hover:bg-[rgb(var(--accent))] hover:text-[rgb(var(--primary))] transition-colors border-b border-[rgb(var(--border))]"
+                  className="cursor-pointer group hover:bg-[rgb(var(--secondary))] transition-colors border-b border-[rgb(var(--border))] last:border-0"
                 >
-                  <td className="p-3 font-bold border-r border-[rgb(var(--border))] hidden md:table-cell">{row.CODIGO}</td>
-                  <td className="p-3 border-r border-[rgb(var(--border))]">
-                    <div className="font-bold">{row.MARCA}</div>
-                    <div className="text-xs opacity-70">{row.LINEA}</div>
-                    <div className="md:hidden text-xs opacity-70 mt-1">
-                      {row.TIPO_VEHICULO} • {row.CILINDRAJE}
+                  <td className="p-4 font-mono font-medium text-[rgb(var(--muted))] hidden md:table-cell">{row.CODIGO}</td>
+                  <td className="p-4">
+                    <div className="font-bold text-[rgb(var(--foreground))]">{row.MARCA}</div>
+                    <div className="text-sm text-[rgb(var(--muted))]">{row.LINEA}</div>
+                    <div className="md:hidden text-xs text-[rgb(var(--muted))] mt-1 flex items-center gap-2">
+                      <span className="bg-[rgb(var(--accent))] px-1.5 py-0.5 rounded text-[rgb(var(--foreground))]">{row.TIPO_VEHICULO}</span>
+                      <span>•</span>
+                      <span>{row.CILINDRAJE}</span>
                     </div>
                   </td>
-                  <td className="p-3 border-r border-[rgb(var(--border))] text-xs hidden md:table-cell">{row.TIPO_VEHICULO}</td>
-                  <td className="p-3 text-center font-bold border-r border-[rgb(var(--border))] hidden md:table-cell">
+                  <td className="p-4 text-[rgb(var(--muted))] hidden md:table-cell">{row.TIPO_VEHICULO}</td>
+                  <td className="p-4 text-center font-medium text-[rgb(var(--foreground))] hidden md:table-cell">
                     {row.CILINDRAJE}
                   </td>
-                   <td className="p-3 text-center opacity-70 border-r border-[rgb(var(--border))] hidden md:table-cell text-xs">
-                    {row.COMBUSTIBLE}
+                   <td className="p-4 text-center text-[rgb(var(--muted))] hidden md:table-cell capitalize">
+                    {row.COMBUSTIBLE?.toLowerCase()}
                   </td>
-                  <td className="p-3 text-center min-w-[120px]">
-                    <button className="brutal-btn w-full bg-[rgb(var(--primary))] text-[rgb(var(--primary-foreground))] text-[10px] md:text-xs py-2 shadow-none group-hover:bg-white group-hover:text-black font-black">
-                       <span className="md:hidden">IMPUESTO A PAGAR</span>
-                       <span className="hidden md:inline">VER IMPUESTO</span>
+                  <td className="p-4 text-center min-w-[140px]">
+                    <button className="w-full bg-[rgb(var(--primary))] text-[rgb(var(--primary-foreground))] text-xs font-semibold py-2 px-4 rounded-full shadow-sm hover:shadow-md hover:scale-105 transition-all">
+                       Ver Impuesto
                     </button>
                   </td>
                 </tr>
               ))}
               {paginatedData.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="p-12 text-center text-lg font-bold uppercase">
-                      No se encontraron resultados
+                  <td colSpan={6} className="p-12 text-center text-[rgb(var(--muted))]">
+                      <div className="flex flex-col items-center gap-2">
+                        <Search className="w-8 h-8 opacity-20" />
+                        <p>No se encontraron vehículos con los filtros seleccionados.</p>
+                      </div>
                   </td>
                 </tr>
               )}
@@ -352,76 +352,79 @@ export default function VehicleSearch() {
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 p-4 brutal-shadow brutal-border bg-[rgb(var(--secondary))]">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 p-4">
           <button
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page === 1}
-            className="brutal-btn disabled:opacity-50 disabled:shadow-none w-full sm:w-auto"
+            className="px-4 py-2 rounded-lg border border-[rgb(var(--border))] hover:bg-[rgb(var(--secondary))] disabled:opacity-50 disabled:hover:bg-transparent transition-colors text-sm font-medium flex items-center gap-2"
           >
-            <ArrowLeft className="w-4 h-4" /> ANTERIOR
+            <ArrowLeft className="w-4 h-4" /> Anterior
           </button>
-          <span className="font-bold font-mono text-center">
-            PÁGINA {page} / {totalPages}
+          <span className="font-mono text-sm text-[rgb(var(--muted))]">
+            Página <span className="font-bold text-[rgb(var(--foreground))]">{page}</span> de {totalPages}
           </span>
           <button
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page === totalPages}
-            className="brutal-btn disabled:opacity-50 disabled:shadow-none w-full sm:w-auto"
+            className="px-4 py-2 rounded-lg border border-[rgb(var(--border))] hover:bg-[rgb(var(--secondary))] disabled:opacity-50 disabled:hover:bg-transparent transition-colors text-sm font-medium flex items-center gap-2"
           >
-            SIGUIENTE <ArrowRight className="w-4 h-4" />
+            Siguiente <ArrowRight className="w-4 h-4" />
           </button>
         </div>
       )}
 
       {/* Modal with 50% Discount Logic */}
       {selectedVehicle && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
           <div 
-            className="w-full max-w-4xl max-h-[90vh] overflow-y-auto brutal-border shadow-2xl animate-in zoom-in-95 duration-200"
-            style={{ background: 'rgb(var(--background))' }}
+            className="w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl animate-in zoom-in-95 duration-200 bg-[rgb(var(--background))]"
           >
             {/* Header */}
-            <div className="sticky top-0 z-10 flex justify-between items-start p-4 md:p-6 bg-[rgb(var(--foreground))] text-[rgb(var(--background))] border-b-4 border-[rgb(var(--border))]">
+            <div className="sticky top-0 z-10 flex justify-between items-start p-6 border-b border-[rgb(var(--border))] bg-[rgb(var(--background))]">
               <div>
-                <div className="inline-block px-2 py-0.5 mb-2 text-xs font-bold uppercase bg-[rgb(var(--accent))] text-[rgb(var(--primary))] border border-[rgb(var(--background))]">
+                <div className="inline-block px-2.5 py-0.5 mb-3 text-xs font-semibold rounded-full bg-blue-100 text-blue-700">
                   {selectedVehicle.TIPO_VEHICULO}
                 </div>
-                <h2 className="text-xl md:text-3xl font-black uppercase tracking-tight leading-none">
+                <h2 className="text-2xl md:text-3xl font-bold text-[rgb(var(--foreground))] leading-tight">
                   {selectedVehicle.MARCA} {selectedVehicle.LINEA}
                 </h2>
-                <p className="font-mono text-sm mt-1 opacity-80">REF: {selectedVehicle.CODIGO}</p>
+                <div className="flex items-center gap-2 mt-2 text-sm text-[rgb(var(--muted))]">
+                  <span className="font-mono bg-[rgb(var(--secondary))] px-2 py-0.5 rounded text-xs">REF: {selectedVehicle.CODIGO}</span>
+                </div>
               </div>
               <button
                 onClick={() => setSelectedVehicle(null)}
-                className="bg-[rgb(var(--background))] text-[rgb(var(--foreground))] p-2 hover:bg-[rgb(var(--accent))] transition-colors border-2 border-transparent hover:border-[rgb(var(--background))]"
+                className="p-2 rounded-full hover:bg-[rgb(var(--secondary))] text-[rgb(var(--muted))] transition-colors"
               >
                 <X className="w-6 h-6" />
               </button>
             </div>
 
-            <div className="p-4 md:p-8 space-y-8">
+            <div className="p-6 md:p-8 space-y-8">
               {/* Discount Alert */}
-              <div className="bg-yellow-400 p-4 border-2 border-black flex items-start gap-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                 <div className="bg-black text-white p-1 rounded-full shrink-0">
-                    <Check className="w-4 h-4" />
+              <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-100 flex items-start gap-4">
+                 <div className="bg-emerald-100 text-emerald-600 p-2 rounded-full shrink-0">
+                    <Check className="w-5 h-5" />
                  </div>
                  <div>
-                    <h3 className="font-black uppercase text-black text-lg">¡50% DE DESCUENTO APLICADO!</h3>
-                    <p className="text-sm font-bold text-black/80">
-                        Los valores mostrados a continuación ya incluyen la rebaja del 50% según el acuerdo vigente para 2026.
+                    <h3 className="font-bold text-emerald-900 text-base mb-1">¡50% de descuento aplicado!</h3>
+                    <p className="text-sm text-emerald-700 leading-relaxed">
+                        Los valores mostrados a continuación ya incluyen la rebaja del 50% en el impuesto sobre circulación de vehículos, según el acuerdo vigente para el año 2026.
                     </p>
                  </div>
               </div>
 
               {/* Data Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                  {/* Tax Table */}
-                  <div className="brutal-border p-4 bg-[rgb(var(--secondary))]">
-                      <h3 className="font-black uppercase mb-4 flex items-center gap-2">
-                          <Calendar className="w-5 h-5" />
-                          Tabla de Impuestos (Con Descuento 50%)
-                      </h3>
-                      <div className="space-y-1 pr-2">
+                  <div className="rounded-xl border border-[rgb(var(--border))] overflow-hidden">
+                      <div className="bg-[rgb(var(--secondary))] p-4 border-b border-[rgb(var(--border))]">
+                        <h3 className="font-bold flex items-center gap-2 text-[rgb(var(--foreground))]">
+                            <Calendar className="w-5 h-5 text-[rgb(var(--primary))]" />
+                            Tabla de Impuestos
+                        </h3>
+                      </div>
+                      <div className="divide-y divide-[rgb(var(--border))] bg-[rgb(var(--background))]">
                           {[2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017].map((year) => {
                               const key = Object.keys(selectedVehicle).find(k => k.startsWith(`ISCV_${year}`)) || "";
                               const originalValue = selectedVehicle[key];
@@ -429,13 +432,12 @@ export default function VehicleSearch() {
                               const discountedValue = calculateDiscountedValue(originalValue);
                               
                               return (
-                                  <div key={year} className="flex justify-between items-center p-2 bg-[rgb(var(--background))] border border-[rgb(var(--border))] hover:border-[rgb(var(--primary))] transition-colors">
-                                      <span className="font-bold text-xs md:text-sm">
-                                          Año {year} {year === 2017 ? "y anteriores" : ""}
+                                  <div key={year} className="flex justify-between items-center p-3 hover:bg-[rgb(var(--secondary))] transition-colors">
+                                      <span className="font-medium text-sm text-[rgb(var(--muted))]">
+                                          Modelo {year} {year === 2017 ? "y anteriores" : ""}
                                       </span>
                                       <div className="text-right">
-                                          <div className="font-black text-sm md:text-lg text-[rgb(var(--primary))]">{discountedValue}</div>
-                                          <div className="text-[10px] line-through opacity-50">{originalValue}</div>
+                                          <div className="font-bold text-lg text-[rgb(var(--foreground))]">{discountedValue}</div>
                                       </div>
                                   </div>
                               );
@@ -446,32 +448,43 @@ export default function VehicleSearch() {
                  {/* Specs */}
                  <div className="space-y-6">
                     <div>
-                        <h3 className="font-black uppercase border-b-2 border-[rgb(var(--border))] mb-3">Especificaciones</h3>
-                        <dl className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
-                            <dt className="font-bold opacity-70">Cilindraje:</dt> <dd className="text-right font-mono">{selectedVehicle.CILINDRAJE || "-"}</dd>
-                            <dt className="font-bold opacity-70">Combustible:</dt> <dd className="text-right font-mono">{selectedVehicle.COMBUSTIBLE || "-"}</dd>
-                            <dt className="font-bold opacity-70">Puertas:</dt> <dd className="text-right font-mono">{selectedVehicle.PUERTAS || "-"}</dd>
-                            <dt className="font-bold opacity-70">Pasajeros:</dt> <dd className="text-right font-mono">{selectedVehicle.PASAJEROS || "-"}</dd>
+                        <h3 className="font-bold text-[rgb(var(--foreground))] border-b border-[rgb(var(--border))] pb-2 mb-4">
+                          Especificaciones Técnicas
+                        </h3>
+                        <dl className="grid grid-cols-2 gap-x-4 gap-y-4 text-sm">
+                            <dt className="text-[rgb(var(--muted))]">Cilindraje</dt> 
+                            <dd className="text-right font-medium text-[rgb(var(--foreground))]">{selectedVehicle.CILINDRAJE || "-"}</dd>
+                            
+                            <dt className="text-[rgb(var(--muted))]">Combustible</dt> 
+                            <dd className="text-right font-medium text-[rgb(var(--foreground))] capitalize">{selectedVehicle.COMBUSTIBLE?.toLowerCase() || "-"}</dd>
+                            
+                            <dt className="text-[rgb(var(--muted))]">Puertas</dt> 
+                            <dd className="text-right font-medium text-[rgb(var(--foreground))]">{selectedVehicle.PUERTAS || "-"}</dd>
+                            
+                            <dt className="text-[rgb(var(--muted))]">Pasajeros</dt> 
+                            <dd className="text-right font-medium text-[rgb(var(--foreground))]">{selectedVehicle.PASAJEROS || "-"}</dd>
                         </dl>
                     </div>
-                     <div>
-                        <h3 className="font-black uppercase border-b-2 border-[rgb(var(--border))] mb-3">Valor Base</h3>
-                        <div className="text-3xl font-black font-mono">
+                     <div className="bg-[rgb(var(--secondary))] p-4 rounded-xl">
+                        <h3 className="text-sm font-medium text-[rgb(var(--muted))] mb-1">Valor Imponible Base</h3>
+                        <div className="text-3xl font-bold text-[rgb(var(--foreground))] tracking-tight">
                             {selectedVehicle.VALOR_VEHICULO}
                         </div>
-                        <p className="text-xs opacity-60">Valor imponible original sin descuentos.</p>
+                        <p className="text-xs text-[rgb(var(--muted))] mt-2 flex items-center gap-1">
+                          <Info className="w-3 h-3" /> Sin descuentos aplicados
+                        </p>
                     </div>
                  </div>
 
               </div>
             </div>
             
-            <div className="p-4 bg-[rgb(var(--secondary))] border-t-2 border-[rgb(var(--border))] text-center">
+            <div className="p-6 border-t border-[rgb(var(--border))] bg-[rgb(var(--secondary))/30] text-center rounded-b-2xl">
                  <button
                   onClick={() => setSelectedVehicle(null)}
-                  className="brutal-btn w-full md:w-auto px-8 py-3 bg-[rgb(var(--foreground))] text-[rgb(var(--background))] hover:bg-[rgb(var(--accent))] hover:text-[rgb(var(--primary))]"
+                  className="w-full md:w-auto px-8 py-3 rounded-full bg-[rgb(var(--foreground))] text-[rgb(var(--background))] font-medium hover:bg-[rgb(var(--primary))] transition-colors shadow-lg"
                 >
-                  CERRAR VENTANA
+                  Cerrar Ventana
                 </button>
             </div>
           </div>

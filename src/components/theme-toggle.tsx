@@ -22,10 +22,10 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 border-2 border-[rgb(var(--foreground))] bg-[rgb(var(--background))] hover:bg-[rgb(var(--accent))] hover:text-[rgb(var(--primary))] transition-colors brutal-shadow-sm active:translate-y-[2px] active:shadow-none"
+      className="p-2.5 rounded-full hover:bg-[rgb(var(--secondary))] text-[rgb(var(--muted))] hover:text-[rgb(var(--foreground))] transition-colors focus:outline-none focus:ring-2 focus:ring-[rgb(var(--primary))]"
       aria-label="Toggle Theme"
     >
-      {theme === "light" ? <Moon className="w-6 h-6" /> : <Sun className="w-6 h-6" />}
+      {theme === "light" ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
     </button>
   );
 }
