@@ -137,7 +137,6 @@ function SearchableSelect({
 export default function VehicleSearch() {
   const [data, setData] = useState<Vehicle[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState("");
   const [selectedMarca, setSelectedMarca] = useState("");
   const [selectedLinea, setSelectedLinea] = useState("");
   const [selectedType, setSelectedType] = useState("");
@@ -184,23 +183,15 @@ export default function VehicleSearch() {
       // 3. Type Filter
       if (selectedType && row.TIPO_VEHICULO !== selectedType) return false;
       
-      // 4. General Search (checks ALL values)
-      if (searchTerm) {
-        const lowerTerm = searchTerm.toLowerCase();
-        // Concatenate relevant fields for faster search instead of Object.values
-        const searchableText = `${row.MARCA} ${row.LINEA} ${row.CODIGO} ${row.TIPO_VEHICULO}`.toLowerCase();
-        return searchableText.includes(lowerTerm);
-      }
-      
       return true;
     });
-  }, [data, searchTerm, selectedMarca, selectedLinea, selectedType]);
+  }, [data, selectedMarca, selectedLinea, selectedType]);
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
   
   useEffect(() => {
     setPage(1);
-  }, [searchTerm, selectedMarca, selectedLinea, selectedType]);
+  }, [selectedMarca, selectedLinea, selectedType]);
 
   const paginatedData = filteredData.slice(
     (page - 1) * itemsPerPage,
@@ -237,23 +228,6 @@ export default function VehicleSearch() {
         </h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-          {/* General Search */}
-          <div className="lg:col-span-4">
-             <label className="block text-xs font-bold mb-2 uppercase tracking-widest">
-                Búsqueda Rápida (Código, Marca, Línea)
-              </label>
-              <div className="relative">
-                <input
-                  type="text"
-                  className="brutal-input pr-10"
-                  placeholder="EJ: P0123ABC..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-                <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 opacity-50" />
-              </div>
-          </div>
-
           {/* Marca Filter */}
           <div className="lg:col-span-2">
             <label className="block text-xs font-bold mb-2 uppercase tracking-widest">Marca</label>
@@ -298,13 +272,12 @@ export default function VehicleSearch() {
             <Database className="w-4 h-4" />
             <span className="font-bold">{filteredData.length}</span> RESULTADOS
           </div>
-          {(selectedMarca || selectedLinea || selectedType || searchTerm) && (
+          {(selectedMarca || selectedLinea || selectedType) && (
             <button
               onClick={() => {
                 setSelectedMarca("");
                 setSelectedLinea("");
                 setSelectedType("");
-                setSearchTerm("");
               }}
               className="brutal-btn w-full sm:w-auto text-xs"
             >
@@ -318,7 +291,7 @@ export default function VehicleSearch() {
       {/* Results Table */}
       <div className="brutal-shadow brutal-border overflow-hidden bg-[rgb(var(--background))]">
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse min-w-[800px]">
+          <table className="w-full text-left border-collapse">
             <thead>
               <tr 
                 className="uppercase text-xs tracking-wider"
@@ -328,8 +301,8 @@ export default function VehicleSearch() {
                 }}
               >
                 <th className="p-3 border-r border-[rgb(var(--background))] hidden md:table-cell">Código</th>
-                <th className="p-3 border-r border-[rgb(var(--background))]">Marca / Línea</th>
-                <th className="p-3 border-r border-[rgb(var(--background))]">Tipo</th>
+                <th className="p-3 border-r border-[rgb(var(--background))]">Marca / Línea / Tipo</th>
+                <th className="p-3 border-r border-[rgb(var(--background))] hidden md:table-cell">Tipo</th>
                 <th className="p-3 border-r border-[rgb(var(--background))] text-center hidden md:table-cell">C.C.</th>
                 <th className="p-3 border-r border-[rgb(var(--background))] text-center hidden md:table-cell">Combustible</th>
                 <th className="p-3 text-center bg-[rgb(var(--primary))] text-[rgb(var(--primary-foreground))]">Acción</th>
@@ -346,8 +319,11 @@ export default function VehicleSearch() {
                   <td className="p-3 border-r border-[rgb(var(--border))]">
                     <div className="font-bold">{row.MARCA}</div>
                     <div className="text-xs opacity-70">{row.LINEA}</div>
+                    <div className="md:hidden text-xs opacity-70 mt-1">
+                      {row.TIPO_VEHICULO} • {row.CILINDRAJE}
+                    </div>
                   </td>
-                  <td className="p-3 border-r border-[rgb(var(--border))] text-xs">{row.TIPO_VEHICULO}</td>
+                  <td className="p-3 border-r border-[rgb(var(--border))] text-xs hidden md:table-cell">{row.TIPO_VEHICULO}</td>
                   <td className="p-3 text-center font-bold border-r border-[rgb(var(--border))] hidden md:table-cell">
                     {row.CILINDRAJE}
                   </td>

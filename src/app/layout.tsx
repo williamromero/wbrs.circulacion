@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     apple: "/wbrs.svg",
   },
   openGraph: {
-    title: "WBRS Circulación 2026 | Consulta de Impuestos",
+    title: "Impuesto de Circulación 2026 | Webres Studio",
     description: "Calcula tu impuesto de circulación 2026 con el 50% de descuento aplicado. Base de datos oficial actualizada.",
     type: "website",
     locale: "es_GT",
