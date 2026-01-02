@@ -218,7 +218,7 @@ export default function VehicleSearch() {
         className="p-6 md:p-8 rounded-2xl shadow-sm border border-[rgb(var(--border))]"
         style={{ background: 'rgb(var(--secondary))' }}
       >
-        <h2 className="text-xl font-bold mb-6 flex items-center gap-2 text-[rgb(var(--foreground))]">
+        <h2 className="text-xl font-bold mb-6 uppercase tracking-widest flex items-center gap-2 text-[rgb(var(--foreground))]">
           <Filter className="w-5 h-5 text-[rgb(var(--primary))]" />
           Filtros de Búsqueda
         </h2>
@@ -226,7 +226,7 @@ export default function VehicleSearch() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {/* Marca Filter */}
           <div className="lg:col-span-2">
-            <label className="block text-sm font-semibold mb-2 text-[rgb(var(--foreground))]">Marca</label>
+            <label className="block text-xs font-bold mb-2 uppercase tracking-widest text-[rgb(var(--foreground))]">Marca</label>
             <SearchableSelect 
               options={uniqueMarcas}
               value={selectedMarca}
@@ -234,39 +234,39 @@ export default function VehicleSearch() {
                 setSelectedMarca(val);
                 setSelectedLinea("");
               }}
-              placeholder="Seleccionar Marca"
+              placeholder="Todas las Marcas"
             />
           </div>
 
           {/* Linea Filter */}
           <div className="lg:col-span-1">
-             <label className="block text-sm font-semibold mb-2 text-[rgb(var(--foreground))]">Línea</label>
+             <label className="block text-xs font-bold mb-2 uppercase tracking-widest text-[rgb(var(--foreground))]">Línea</label>
              <SearchableSelect 
               options={uniqueLineas}
               value={selectedLinea}
               onChange={setSelectedLinea}
-              placeholder="Seleccionar Línea"
+              placeholder="Todas las Líneas"
               disabled={!selectedMarca && uniqueLineas.length > 100} // Opt optimization
             />
           </div>
 
            {/* Type Filter */}
            <div className="lg:col-span-1">
-             <label className="block text-sm font-semibold mb-2 text-[rgb(var(--foreground))]">Tipo</label>
+             <label className="block text-xs font-bold mb-2 uppercase tracking-widest text-[rgb(var(--foreground))]">Tipo</label>
              <SearchableSelect 
               options={uniqueTypes}
               value={selectedType}
               onChange={setSelectedType}
-              placeholder="Seleccionar Tipo"
+              placeholder="Todos los Tipos"
             />
           </div>
         </div>
 
         {/* Results Count and Clear Filters */}
         <div className="mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-6 border-t border-[rgb(var(--border))]">
-          <div className="flex items-center gap-2 text-sm text-[rgb(var(--muted))]">
+          <div className="flex items-center gap-2 text-sm font-mono text-[rgb(var(--muted))]">
             <Database className="w-4 h-4" />
-            <span>Encontrados: <strong className="text-[rgb(var(--foreground))]">{filteredData.length}</strong> vehículos</span>
+            <span className="font-bold text-[rgb(var(--foreground))]">{filteredData.length}</span> RESULTADOS
           </div>
           {(selectedMarca || selectedLinea || selectedType) && (
             <button
@@ -275,10 +275,10 @@ export default function VehicleSearch() {
                 setSelectedLinea("");
                 setSelectedType("");
               }}
-              className="brutal-btn w-full sm:w-auto text-xs px-4 rounded-full border-none shadow-none bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700"
+              className="px-4 py-2 rounded-lg text-xs font-bold uppercase bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700 transition-colors flex items-center gap-2"
             >
               <X className="w-4 h-4" />
-              Limpiar filtros
+              Limpiar Todo
             </button>
           )}
         </div>
@@ -290,7 +290,7 @@ export default function VehicleSearch() {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr 
-                className="text-xs font-semibold tracking-wide uppercase border-b border-[rgb(var(--border))]"
+                className="uppercase text-xs tracking-wider border-b border-[rgb(var(--border))]"
                 style={{ 
                   background: 'rgb(var(--secondary))',
                   color: 'rgb(var(--muted))'
@@ -304,44 +304,42 @@ export default function VehicleSearch() {
                 <th className="p-4 text-center">Acción</th>
               </tr>
             </thead>
-            <tbody className="text-sm">
+            <tbody className="text-sm font-mono">
               {paginatedData.map((row, index) => (
                 <tr
                   key={index}
                   onClick={() => setSelectedVehicle(row)}
                   className="cursor-pointer group hover:bg-[rgb(var(--secondary))] transition-colors border-b border-[rgb(var(--border))] last:border-0"
                 >
-                  <td className="p-4 font-mono font-medium text-[rgb(var(--muted))] hidden md:table-cell">{row.CODIGO}</td>
+                  <td className="p-4 font-bold text-[rgb(var(--muted))] hidden md:table-cell">{row.CODIGO}</td>
                   <td className="p-4">
                     <div className="font-bold text-[rgb(var(--foreground))]">{row.MARCA}</div>
-                    <div className="text-sm text-[rgb(var(--muted))]">{row.LINEA}</div>
-                    <div className="md:hidden text-xs text-[rgb(var(--muted))] mt-1 flex items-center gap-2">
+                    <div className="text-xs opacity-70">{row.LINEA}</div>
+                    <div className="md:hidden text-xs opacity-70 mt-1 flex items-center gap-2">
                       <span className="bg-[rgb(var(--accent))] px-1.5 py-0.5 rounded text-[rgb(var(--foreground))]">{row.TIPO_VEHICULO}</span>
                       <span>•</span>
                       <span>{row.CILINDRAJE}</span>
                     </div>
                   </td>
-                  <td className="p-4 text-[rgb(var(--muted))] hidden md:table-cell">{row.TIPO_VEHICULO}</td>
-                  <td className="p-4 text-center font-medium text-[rgb(var(--foreground))] hidden md:table-cell">
+                  <td className="p-4 text-xs text-[rgb(var(--muted))] hidden md:table-cell">{row.TIPO_VEHICULO}</td>
+                  <td className="p-4 text-center font-bold text-[rgb(var(--foreground))] hidden md:table-cell">
                     {row.CILINDRAJE}
                   </td>
-                   <td className="p-4 text-center text-[rgb(var(--muted))] hidden md:table-cell capitalize">
-                    {row.COMBUSTIBLE?.toLowerCase()}
+                   <td className="p-4 text-center text-xs text-[rgb(var(--muted))] hidden md:table-cell">
+                    {row.COMBUSTIBLE}
                   </td>
                   <td className="p-4 text-center min-w-[140px]">
-                    <button className="w-full bg-[rgb(var(--primary))] text-[rgb(var(--primary-foreground))] text-xs font-semibold py-2 px-4 rounded-full shadow-sm hover:shadow-md hover:scale-105 transition-all">
-                       Ver Impuesto
+                    <button className="w-full bg-[rgb(var(--primary))] text-[rgb(var(--primary-foreground))] text-[10px] md:text-xs font-black uppercase py-2 px-4 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all">
+                       <span className="md:hidden">IMPUESTO A PAGAR</span>
+                       <span className="hidden md:inline">VER IMPUESTO</span>
                     </button>
                   </td>
                 </tr>
               ))}
               {paginatedData.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="p-12 text-center text-[rgb(var(--muted))]">
-                      <div className="flex flex-col items-center gap-2">
-                        <Search className="w-8 h-8 opacity-20" />
-                        <p>No se encontraron vehículos con los filtros seleccionados.</p>
-                      </div>
+                  <td colSpan={6} className="p-12 text-center text-lg font-bold uppercase text-[rgb(var(--muted))]">
+                      No se encontraron resultados
                   </td>
                 </tr>
               )}
@@ -356,19 +354,19 @@ export default function VehicleSearch() {
           <button
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page === 1}
-            className="px-4 py-2 rounded-lg border border-[rgb(var(--border))] hover:bg-[rgb(var(--secondary))] disabled:opacity-50 disabled:hover:bg-transparent transition-colors text-sm font-medium flex items-center gap-2"
+            className="px-4 py-2 rounded-lg border border-[rgb(var(--border))] hover:bg-[rgb(var(--secondary))] disabled:opacity-50 disabled:hover:bg-transparent transition-colors text-xs font-bold uppercase flex items-center gap-2"
           >
-            <ArrowLeft className="w-4 h-4" /> Anterior
+            <ArrowLeft className="w-4 h-4" /> ANTERIOR
           </button>
-          <span className="font-mono text-sm text-[rgb(var(--muted))]">
-            Página <span className="font-bold text-[rgb(var(--foreground))]">{page}</span> de {totalPages}
+          <span className="font-bold font-mono text-center">
+            PÁGINA {page} / {totalPages}
           </span>
           <button
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page === totalPages}
-            className="px-4 py-2 rounded-lg border border-[rgb(var(--border))] hover:bg-[rgb(var(--secondary))] disabled:opacity-50 disabled:hover:bg-transparent transition-colors text-sm font-medium flex items-center gap-2"
+            className="px-4 py-2 rounded-lg border border-[rgb(var(--border))] hover:bg-[rgb(var(--secondary))] disabled:opacity-50 disabled:hover:bg-transparent transition-colors text-xs font-bold uppercase flex items-center gap-2"
           >
-            Siguiente <ArrowRight className="w-4 h-4" />
+            SIGUIENTE <ArrowRight className="w-4 h-4" />
           </button>
         </div>
       )}
@@ -377,24 +375,22 @@ export default function VehicleSearch() {
       {selectedVehicle && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
           <div 
-            className="w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl animate-in zoom-in-95 duration-200 bg-[rgb(var(--background))]"
+            className="w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl animate-in zoom-in-95 duration-200 bg-[rgb(var(--background))]"
           >
             {/* Header */}
-            <div className="sticky top-0 z-10 flex justify-between items-start p-6 border-b border-[rgb(var(--border))] bg-[rgb(var(--background))]">
+            <div className="sticky top-0 z-10 flex justify-between items-start p-6 border-b border-[rgb(var(--border))] bg-[rgb(var(--foreground))] text-[rgb(var(--background))]">
               <div>
-                <div className="inline-block px-2.5 py-0.5 mb-3 text-xs font-semibold rounded-full bg-blue-100 text-blue-700">
+                <div className="inline-block px-2 py-0.5 mb-2 text-xs font-bold uppercase bg-[rgb(var(--accent))] text-[rgb(var(--primary))] rounded-md">
                   {selectedVehicle.TIPO_VEHICULO}
                 </div>
-                <h2 className="text-2xl md:text-3xl font-bold text-[rgb(var(--foreground))] leading-tight">
+                <h2 className="text-xl md:text-3xl font-black uppercase tracking-tight leading-none">
                   {selectedVehicle.MARCA} {selectedVehicle.LINEA}
                 </h2>
-                <div className="flex items-center gap-2 mt-2 text-sm text-[rgb(var(--muted))]">
-                  <span className="font-mono bg-[rgb(var(--secondary))] px-2 py-0.5 rounded text-xs">REF: {selectedVehicle.CODIGO}</span>
-                </div>
+                <p className="font-mono text-sm mt-1 opacity-80 uppercase">REF: {selectedVehicle.CODIGO}</p>
               </div>
               <button
                 onClick={() => setSelectedVehicle(null)}
-                className="p-2 rounded-full hover:bg-[rgb(var(--secondary))] text-[rgb(var(--muted))] transition-colors"
+                className="bg-[rgb(var(--background))] text-[rgb(var(--foreground))] p-2 rounded-full hover:bg-[rgb(var(--accent))] transition-colors"
               >
                 <X className="w-6 h-6" />
               </button>
@@ -407,9 +403,9 @@ export default function VehicleSearch() {
                     <Check className="w-5 h-5" />
                  </div>
                  <div>
-                    <h3 className="font-bold text-emerald-900 text-base mb-1">¡50% de descuento aplicado!</h3>
+                    <h3 className="font-bold text-emerald-900 text-base mb-1 uppercase">¡50% de descuento aplicado!</h3>
                     <p className="text-sm text-emerald-700 leading-relaxed">
-                        Los valores mostrados a continuación ya incluyen la rebaja del 50% en el impuesto sobre circulación de vehículos, según el acuerdo vigente para el año 2026.
+                        Los valores mostrados a continuación ya incluyen la rebaja del 50% según el acuerdo vigente para 2026.
                     </p>
                  </div>
               </div>
@@ -419,9 +415,9 @@ export default function VehicleSearch() {
                  {/* Tax Table */}
                   <div className="rounded-xl border border-[rgb(var(--border))] overflow-hidden">
                       <div className="bg-[rgb(var(--secondary))] p-4 border-b border-[rgb(var(--border))]">
-                        <h3 className="font-bold flex items-center gap-2 text-[rgb(var(--foreground))]">
+                        <h3 className="font-black uppercase flex items-center gap-2 text-[rgb(var(--foreground))]">
                             <Calendar className="w-5 h-5 text-[rgb(var(--primary))]" />
-                            Tabla de Impuestos
+                            Tabla de Impuestos (Con Descuento 50%)
                         </h3>
                       </div>
                       <div className="divide-y divide-[rgb(var(--border))] bg-[rgb(var(--background))]">
@@ -433,11 +429,12 @@ export default function VehicleSearch() {
                               
                               return (
                                   <div key={year} className="flex justify-between items-center p-3 hover:bg-[rgb(var(--secondary))] transition-colors">
-                                      <span className="font-medium text-sm text-[rgb(var(--muted))]">
-                                          Modelo {year} {year === 2017 ? "y anteriores" : ""}
+                                      <span className="font-bold text-xs md:text-sm text-[rgb(var(--muted))] uppercase">
+                                          Año {year} {year === 2017 ? "y anteriores" : ""}
                                       </span>
                                       <div className="text-right">
-                                          <div className="font-bold text-lg text-[rgb(var(--foreground))]">{discountedValue}</div>
+                                          <div className="font-black text-sm md:text-lg text-[rgb(var(--primary))]">{discountedValue}</div>
+                                          <div className="text-[10px] line-through opacity-50">{originalValue}</div>
                                       </div>
                                   </div>
                               );
@@ -448,31 +445,20 @@ export default function VehicleSearch() {
                  {/* Specs */}
                  <div className="space-y-6">
                     <div>
-                        <h3 className="font-bold text-[rgb(var(--foreground))] border-b border-[rgb(var(--border))] pb-2 mb-4">
-                          Especificaciones Técnicas
-                        </h3>
-                        <dl className="grid grid-cols-2 gap-x-4 gap-y-4 text-sm">
-                            <dt className="text-[rgb(var(--muted))]">Cilindraje</dt> 
-                            <dd className="text-right font-medium text-[rgb(var(--foreground))]">{selectedVehicle.CILINDRAJE || "-"}</dd>
-                            
-                            <dt className="text-[rgb(var(--muted))]">Combustible</dt> 
-                            <dd className="text-right font-medium text-[rgb(var(--foreground))] capitalize">{selectedVehicle.COMBUSTIBLE?.toLowerCase() || "-"}</dd>
-                            
-                            <dt className="text-[rgb(var(--muted))]">Puertas</dt> 
-                            <dd className="text-right font-medium text-[rgb(var(--foreground))]">{selectedVehicle.PUERTAS || "-"}</dd>
-                            
-                            <dt className="text-[rgb(var(--muted))]">Pasajeros</dt> 
-                            <dd className="text-right font-medium text-[rgb(var(--foreground))]">{selectedVehicle.PASAJEROS || "-"}</dd>
+                        <h3 className="font-black uppercase border-b-2 border-[rgb(var(--border))] mb-3 text-[rgb(var(--foreground))]">Especificaciones</h3>
+                        <dl className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+                            <dt className="font-bold opacity-70 uppercase">Cilindraje:</dt> <dd className="text-right font-mono">{selectedVehicle.CILINDRAJE || "-"}</dd>
+                            <dt className="font-bold opacity-70 uppercase">Combustible:</dt> <dd className="text-right font-mono">{selectedVehicle.COMBUSTIBLE || "-"}</dd>
+                            <dt className="font-bold opacity-70 uppercase">Puertas:</dt> <dd className="text-right font-mono">{selectedVehicle.PUERTAS || "-"}</dd>
+                            <dt className="font-bold opacity-70 uppercase">Pasajeros:</dt> <dd className="text-right font-mono">{selectedVehicle.PASAJEROS || "-"}</dd>
                         </dl>
                     </div>
-                     <div className="bg-[rgb(var(--secondary))] p-4 rounded-xl">
-                        <h3 className="text-sm font-medium text-[rgb(var(--muted))] mb-1">Valor Imponible Base</h3>
-                        <div className="text-3xl font-bold text-[rgb(var(--foreground))] tracking-tight">
+                     <div>
+                        <h3 className="font-black uppercase border-b-2 border-[rgb(var(--border))] mb-3 text-[rgb(var(--foreground))]">Valor Base</h3>
+                        <div className="text-3xl font-black font-mono text-[rgb(var(--foreground))]">
                             {selectedVehicle.VALOR_VEHICULO}
                         </div>
-                        <p className="text-xs text-[rgb(var(--muted))] mt-2 flex items-center gap-1">
-                          <Info className="w-3 h-3" /> Sin descuentos aplicados
-                        </p>
+                        <p className="text-xs opacity-60">Valor imponible original sin descuentos.</p>
                     </div>
                  </div>
 
@@ -482,9 +468,9 @@ export default function VehicleSearch() {
             <div className="p-6 border-t border-[rgb(var(--border))] bg-[rgb(var(--secondary))/30] text-center rounded-b-2xl">
                  <button
                   onClick={() => setSelectedVehicle(null)}
-                  className="w-full md:w-auto px-8 py-3 rounded-full bg-[rgb(var(--foreground))] text-[rgb(var(--background))] font-medium hover:bg-[rgb(var(--primary))] transition-colors shadow-lg"
+                  className="w-full md:w-auto px-8 py-3 rounded-lg bg-[rgb(var(--foreground))] text-[rgb(var(--background))] font-black uppercase hover:bg-[rgb(var(--primary))] transition-colors shadow-lg"
                 >
-                  Cerrar Ventana
+                  CERRAR VENTANA
                 </button>
             </div>
           </div>
