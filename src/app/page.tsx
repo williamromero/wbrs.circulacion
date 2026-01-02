@@ -8,7 +8,7 @@ export default function Home() {
     <main className="flex-1 flex flex-col min-h-screen p-4 md:p-8 space-y-8 bg-grid-pattern transition-colors duration-300">
       
       {/* Header */}
-      <header className="border-b border-[rgb(var(--border))] pb-6 mb-4">
+      <header className="border-b border-[rgb(var(--border))] sm:pb-6 mb-4 mt-2">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
           <div className="flex-1 w-full">
             <div className="flex justify-between items-start w-full mt-3">
