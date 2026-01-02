@@ -313,8 +313,8 @@ export default function VehicleSearch() {
                 >
                   <td className="p-4 font-bold text-[rgb(var(--muted))] hidden md:table-cell">{row.CODIGO}</td>
                   <td className="p-4">
-                    <div className="font-bold text-[rgb(var(--foreground))]">{row.MARCA}</div>
-                    <div className="text-xs opacity-70">{row.LINEA}</div>
+                    <div className="font-bold text-[rgb(var(--foreground))]">{row.MARCA} {row.LINEA}</div>
+                    <div className="text-xs opacity-70">{row.ESTILO}</div>
                     <div className="md:hidden text-xs opacity-70 mt-1 flex items-center gap-2">
                       <span className="bg-[rgb(var(--accent))] px-1.5 py-0.5 rounded text-[rgb(var(--foreground))]">{row.TIPO_VEHICULO}</span>
                       <span>•</span>

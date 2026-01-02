@@ -57,27 +57,27 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="relative mt-12 pt-8 border-t border-[rgb(var(--border))] flex flex-col md:flex-row justify-center items-center gap-2 text-sm font-bold uppercase text-[rgb(var(--muted))]">
+      <footer className="relative mt-6 pt-8 border-t border-[rgb(var(--border))] flex flex-col md:flex-row justify-center items-center gap-2 text-sm font-bold uppercase text-[rgb(var(--muted))] mb-5">
         <div className="flex items-center gap-2 relative">
           <span>Hecho con</span>
           <Heart className="w-4 h-4 text-red-500 fill-red-500 animate-heartbeat" />
           <span>POR</span>
-          <span className="bg-[rgb(var(--foreground))] text-[rgb(var(--background))] px-2 py-1 tracking-widest rounded-md">
+          <span className="bg-[rgb(var(--foreground))] text-[rgb(var(--background))] px-2 py-1 pr-4 tracking-widest rounded-md">
             WEBRES STUDIO
-            <a 
-              href="https://www.webres-studio.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex flex-col items-center group transition-transform hover:scale-110 absolute">
-              <Image 
-                src="/wbrs.svg" 
-                alt="WBRS Logo" 
-                width={60} 
-                height={60} 
-                className="-right-[3.5em] z-0"
-              />
-            </a>
           </span>
+          <a 
+            href="https://www.webres-studio.com" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="flex flex-col items-center group transition-transform hover:scale-110 absolute -right-[3em]">
+            <Image 
+              src="/wbrs.svg" 
+              alt="WBRS Logo" 
+              width={55} 
+              height={55} 
+              className="-right-[3.5em] z-0"
+            />
+          </a>
         </div>
       </footer>
     </main>
