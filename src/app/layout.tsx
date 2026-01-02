@@ -43,9 +43,9 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body
-        className="antialiased font-mono selection:bg-[rgb(var(--primary))] selection:text-[rgb(var(--primary-foreground))]"
+        className="antialiased font-sans selection:bg-[rgb(var(--primary))] selection:text-[rgb(var(--primary-foreground))]"
       >
-        <div className="min-h-screen flex flex-col border-x-4 border-[rgb(var(--foreground))] max-w-7xl mx-auto bg-[rgb(var(--background))] shadow-[0px_0px_50px_rgba(0,0,0,0.1)]">
+        <div className="min-h-screen flex flex-col max-w-7xl mx-auto bg-[rgb(var(--background))] shadow-xl">
            {children}
         </div>
       </body>

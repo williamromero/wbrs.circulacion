@@ -1,95 +1,105 @@
 @import "tailwindcss";
 
 :root {
+  /* Friendly Light Mode */
   --background: 255 255 255;
-  --foreground: 0 0 0;
-  --primary: 0 0 0;
+  --foreground: 30 41 59; /* slate-800 - High contrast text */
+  
+  --primary: 37 99 235; /* blue-600 - Standard accessible primary */
   --primary-foreground: 255 255 255;
-  --secondary: 243 244 246; /* gray-100 */
-  --accent: 252 211 77; /* amber-300 */
-  --border: 0 0 0;
-  --muted: 107 114 128; /* gray-500 */
+  
+  --secondary: 241 245 249; /* slate-100 - Light gray for backgrounds */
+  --secondary-foreground: 15 23 42;
+  
+  --accent: 226 232 240; /* slate-200 */
+  --accent-foreground: 15 23 42;
+  
+  --border: 203 213 225; /* slate-300 - Distinct but soft borders */
+  --muted: 100 116 139; /* slate-500 */
+  
+  --radius: 0.5rem; /* 8px rounded corners */
 }
 
 [data-theme="dark"] {
-  /* Negro puro para fondo */
-  --background: 0 0 0;
+  /* Friendly Dark Mode */
+  --background: 15 23 42; /* slate-900 */
+  --foreground: 241 245 249; /* slate-100 */
   
-  /* Blanco puro para texto */
-  --foreground: 255 255 255;
+  --primary: 96 165 250; /* blue-400 - Lighter for dark mode visibility */
+  --primary-foreground: 15 23 42;
   
-  /* Color de acento principal eléctrico (Verde Ácido / Lime) */
-  --primary: 204 255 0; /* #ccff00 */
-  --primary-foreground: 0 0 0;
+  --secondary: 30 41 59; /* slate-800 */
+  --secondary-foreground: 248 250 252;
   
-  /* Secundario para fondos de tarjetas/modales */
-  --secondary: 20 20 20; 
+  --accent: 51 65 85; /* slate-700 */
+  --accent-foreground: 248 250 252;
   
-  /* Color de acento secundario (Magenta Neón) - Reemplaza al Cian */
-  /* Se usa para detalles que no son la acción principal */
-  --accent: 255 0 255; /* #ff00ff */
-  
-  /* Bordes blancos gruesos */
-  --border: 255 255 255;
-  
-  --muted: 163 163 163;
+  --border: 51 65 85; /* slate-700 */
+  --muted: 148 163 184; /* slate-400 */
 }
 
 body {
   color: rgb(var(--foreground));
   background: rgb(var(--background));
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 @layer utilities {
   .brutal-border {
-    border: 2px solid rgb(var(--border));
+    border: 1px solid rgb(var(--border));
+    border-radius: var(--radius);
   }
   
   .brutal-shadow {
-    box-shadow: 4px 4px 0px 0px rgb(var(--border));
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
   
   .brutal-shadow-sm {
-    box-shadow: 2px 2px 0px 0px rgb(var(--border));
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   }
   
+  /* Redefining brutal-btn to be a standard accessible button */
   .brutal-btn {
-    @apply px-4 py-2 font-bold transition-all flex items-center justify-center gap-2 uppercase tracking-wider;
+    @apply px-4 py-2 font-medium transition-all flex items-center justify-center gap-2;
     background-color: rgb(var(--background));
     color: rgb(var(--foreground));
-    border: 2px solid rgb(var(--border));
-    box-shadow: 4px 4px 0px 0px rgb(var(--border));
+    border: 1px solid rgb(var(--border));
+    border-radius: var(--radius);
   }
   
   .brutal-btn:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0px 0px rgb(var(--primary)); 
-    background-color: rgb(var(--primary));
-    color: rgb(var(--primary-foreground));
-    border-color: rgb(var(--primary));
+    background-color: rgb(var(--secondary));
+    border-color: rgb(var(--muted));
+  }
+
+  .brutal-btn:active {
+    background-color: rgb(var(--accent));
+    transform: translateY(0);
   }
   
-  .brutal-btn:active {
-    transform: translate(2px, 2px);
-    box-shadow: 0px 0px 0px 0px rgb(var(--border));
+  .brutal-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
   
   .brutal-input {
-    @apply w-full p-3 focus:outline-none rounded-none font-mono;
+    @apply w-full p-3 focus:outline-none transition-all;
     background-color: rgb(var(--background));
     color: rgb(var(--foreground));
-    border: 2px solid rgb(var(--border));
+    border: 1px solid rgb(var(--border));
+    border-radius: var(--radius);
   }
   
   .brutal-input:focus {
-    box-shadow: 4px 4px 0px 0px rgb(var(--primary));
     border-color: rgb(var(--primary));
+    box-shadow: 0 0 0 3px rgba(var(--primary), 0.2);
   }
 
   .bg-grid-pattern {
-    background-size: 40px 40px;
-    background-image: 
-      linear-gradient(to right, rgba(var(--border), 0.2) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(var(--border), 0.2) 1px, transparent 1px);
+    background-color: rgb(var(--background));
+    background-image: radial-gradient(rgb(var(--border)) 1px, transparent 1px);
+    background-size: 24px 24px;
+    opacity: 0.8;
   }
 }
