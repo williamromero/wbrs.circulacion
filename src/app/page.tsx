@@ -1,12 +1,14 @@
 import VehicleSearch from "@/components/vehicle-search";
 import ThemeToggle from "@/components/theme-toggle";
 import PaymentTutorialModal from "@/components/payment-tutorial-modal";
+import InitialConfigModal from "@/components/initial-config-modal";
 import { ExternalLink, Heart } from "lucide-react";
 import Image from "next/image";
 
 export default function Home() {
   return (
     <main className="flex-1 flex flex-col min-h-screen p-4 md:p-8 space-y-8 bg-grid-pattern transition-colors duration-300">
+      <InitialConfigModal />
       
       {/* Header */}
       <header className="border-b border-[rgb(var(--border))] sm:pb-6 mb-4 mt-2">
