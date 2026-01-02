@@ -10,15 +10,15 @@ type Vehicle = {
   LINEA: string;
   TIPO_VEHICULO: string;
   CILINDRAJE: string;
-  POTENCIA: string;
-  TONELAJE: string;
-  CARROCERIA: string;
+  WATTS: string;
+  KW: string;
+  ESTILO: string;
   COMBUSTIBLE: string;
-  TRANSMISION: string;
-  EJES: string;
-  TRACCION: string;
   PUERTAS: string;
-  PASAJEROS: string;
+  ASIENTOS: string;
+  TONELAJE: string;
+  EJES: string;
+  CILINDROS: string;
   CODIGO: string;
   VALOR_VEHICULO: string;
   "ISCV_2026_2%": string;
@@ -448,9 +448,11 @@ export default function VehicleSearch() {
                         <h3 className="font-black uppercase border-b-2 border-[rgb(var(--border))] mb-3 text-[rgb(var(--foreground))]">Especificaciones</h3>
                         <dl className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
                             <dt className="font-bold opacity-70 uppercase">Cilindraje:</dt> <dd className="text-right font-mono">{selectedVehicle.CILINDRAJE || "-"}</dd>
+                            <dt className="font-bold opacity-70 uppercase">Estilo:</dt> <dd className="text-right font-mono">{selectedVehicle.ESTILO || "-"}</dd>
                             <dt className="font-bold opacity-70 uppercase">Combustible:</dt> <dd className="text-right font-mono">{selectedVehicle.COMBUSTIBLE || "-"}</dd>
                             <dt className="font-bold opacity-70 uppercase">Puertas:</dt> <dd className="text-right font-mono">{selectedVehicle.PUERTAS || "-"}</dd>
-                            <dt className="font-bold opacity-70 uppercase">Pasajeros:</dt> <dd className="text-right font-mono">{selectedVehicle.PASAJEROS || "-"}</dd>
+                            <dt className="font-bold opacity-70 uppercase">Asientos:</dt> <dd className="text-right font-mono">{selectedVehicle.ASIENTOS || "-"}</dd>
+                            <dt className="font-bold opacity-70 uppercase">Código:</dt> <dd className="text-right font-mono">{selectedVehicle.CODIGO || "-"}</dd>
                         </dl>
                     </div>
                      <div>
